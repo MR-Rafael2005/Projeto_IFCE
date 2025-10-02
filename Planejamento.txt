@@ -1,0 +1,26 @@
+Niveis:
+Administrador
+Usuario
+Cliente(Opcional)
+
+Paginas:
+-Bases:
+--Login
+--Dashboard(Area de Trabalho)
+
+-Cadastro
+--Cadastro(Usuario)
+--Cadastro(Medico/Paciente)
+--Cadastro(Consulta)
+
+-Listagem:
+--Listar(Usuarios)
+--Listar(Medicos) [Talvez seja possivel unir listas de medicos e pacientes]
+--Listar(Pacientes) [Opcional]
+--Listar(Consultas)
+
+-Edições:
+--Editar(Usuario)
+--Editar(Medico) [Talvez seja possivel unir edição de medicos e pacientes]
+--Editar(Paciente)
+--Editar(Consultas)
