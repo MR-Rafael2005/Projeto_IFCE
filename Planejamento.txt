@@ -1,26 +1,38 @@
 Niveis:
-Administrador
-Usuario
-Cliente(Opcional)
+Administrador (* Apenas Ele tem acesso)
+Usuario(** Apenas Ele tem acesso)
 
 Paginas:
 -Bases:
---Login
---Dashboard(Area de Trabalho)
+--Login - Pablo
+--Dashboard(Area de Trabalho) - Vinicius
 
 -Cadastro
---Cadastro(Usuario)
---Cadastro(Medico/Paciente)
---Cadastro(Consulta)
-
--Listagem:
---Listar(Usuarios)
---Listar(Medicos) [Talvez seja possivel unir listas de medicos e pacientes]
---Listar(Pacientes) [Opcional]
---Listar(Consultas)
+--Cadastro(Usuario) - Quixote
+--Cadastro(Medico)* - Gabriel
+--Cadastro(Paciente) - Emerson
+--Cadastro(Consulta) - Joao
 
 -Edições:
---Editar(Usuario)
---Editar(Medico) [Talvez seja possivel unir edição de medicos e pacientes]
---Editar(Paciente)
---Editar(Consultas)
+--Editar(Usuario)** - Quixote
+--Editar(Medico)* - Gabriel
+--Editar(Paciente) - Emerson
+--Editar(Consultas) - Joao
+
+-Listagem:
+--Listar(Usuario)* - Pablo
+--Listar(Medicos)* - Rafael
+--Listar(Pacientes) - Rafael
+--Listar(Consultas) - Vinicius
+
+Cores Base:
+#27794933
+#277949
+#42B950
+#C5E0CD
+#D9D9D9
+#F8F5F5
+
+Font:
+-Instrument Sans
+-Bree Serif
