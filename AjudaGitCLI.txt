@@ -14,4 +14,3 @@ git merge <nome_branch> [Juntar branches, puxando um branch para o branch atual,
 git remote add origin [Adiciona uma seed/link para o repositorio no github, ja vem definida automaticamente quando o repositorio é clonado]
 git push [Envia as alterações ate o ultimo commit para o repositorio no github]
 git pull [Atualiza o repositorio local com o repositorio do github]
-
