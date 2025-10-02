@@ -1,4 +1,5 @@
 git init [Iniciar repositorio]
+git rev-parse --show-toplevel [Ver onde esta a pasta .git que contem o repositorio]
 git status [Ver a stuação atual do repositio e branch]
 git add * [Adiciona todos os arquivos ao repositorio]
 git commit -m "" [Salva as alterações em um commit e entre as aspas se coloca uma mensagem tipo "Pagina de login finalizada"]
@@ -13,3 +14,4 @@ git merge <nome_branch> [Juntar branches, puxando um branch para o branch atual,
 git remote add origin [Adiciona uma seed/link para o repositorio no github, ja vem definida automaticamente quando o repositorio é clonado]
 git push [Envia as alterações ate o ultimo commit para o repositorio no github]
 git pull [Atualiza o repositorio local com o repositorio do github]
+
