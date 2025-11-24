@@ -1,0 +1,1 @@
+Os arquivos como imagens, icones, etc. devem ser colocados nesta pasta

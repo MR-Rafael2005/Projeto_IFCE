@@ -1,0 +1,1 @@
+# Base para o aplicativo Flask
