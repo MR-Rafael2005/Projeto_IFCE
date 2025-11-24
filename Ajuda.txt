@@ -1,0 +1,15 @@
+Repositorio: https://github.com/MR-Rafael2005/Projeto_IFCE.git
+Dcumentação de Planos: https://docs.google.com/document/d/1mqkTYIXlbKyRX3bnETbhfZyt46QcUUPvELC97bYMF30/edit?usp=sharing
+Figma(Em breve): 
+
+Paleta de cores:
+#5e605f
+#0f4875
+#227cea
+#259bd8
+#21eaca
+#5de6ba
+
+Páginas feitas (Parte 1): 02/12
+Páginas feitas (Parte 2): 09/12
+Funcionamento básico: 15/12
