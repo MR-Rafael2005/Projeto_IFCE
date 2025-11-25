@@ -1,5 +1,6 @@
 Repositorio: https://github.com/MR-Rafael2005/Projeto_IFCE.git
 Dcumentação de Planos: https://docs.google.com/document/d/1mqkTYIXlbKyRX3bnETbhfZyt46QcUUPvELC97bYMF30/edit?usp=sharing
+Template: https://startbootstrap.com/previews/sb-admin-2
 Figma(Em breve): 
 
 Paleta de cores:
@@ -9,6 +10,24 @@ Paleta de cores:
 #259bd8
 #21eaca
 #5de6ba
+
+Comandos Git:
+git init [Iniciar repositorio]
+git status [Ver a stuação atual do repositio e branch]
+git add * [Adiciona todos os arquivos ao repositorio]
+git commit -m "" [Salva as alterações em um commit e entre as aspas se coloca uma mensagem tipo "Pagina de login finalizada"]
+git log --oneline [Mostra um historico de commits e alterações no repositorio/branch]
+git checkout [Permite navegar entre commits e branches, os branches por nome os commits pelos ids]
+git revert [Remove todas as alterações de um commit]
+git reset [Volta para um commit especifico PERMANENTEMENTE!!!]
+git branch [Verifica em qual branch se está]
+git branch <novo-branch> [Quando se coloca algo no lugar de <novo-branch> se cria um novo branch, tipo: git branch sistema_agendamento]
+git merge <nome_branch> [Juntar branches, puxando um branch para o branch atual, tipo: git merge meu_branch, vai juntar o branch que vc estar esta agora com o que vc esta chamando, use quando tiver acabado sua parte, antes de fazer isso de git pull]
+[OBS: Pode ocorrer de se abrir o VIM, para fechar digite :q! e aperte ENTER]
+git remote add origin [Adiciona uma seed/link para o repositorio no github, ja vem definida automaticamente quando o repositorio é clonado]
+git push [Envia as alterações ate o ultimo commit para o repositorio no github]
+git pull [Atualiza o repositorio local com o repositorio do github]
+
 
 Páginas feitas (Parte 1): 02/12
 Páginas feitas (Parte 2): 09/12
