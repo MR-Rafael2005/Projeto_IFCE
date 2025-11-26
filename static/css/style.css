@@ -1,1 +1,55 @@
 /* Codigo do estilo do projeto (Quando não for do bootstrap) deve ser colocado aqui */
+
+/* Cor de texto cinza escuro */
+.dark-gray {
+    color: #5e605f;
+}
+/* Cor de fundo cinza escuro */
+.dark-gray-bg {
+    background-color: #5e605f;
+}
+
+/* Cor de texto azul marinho escuro */
+.dark-navy-blue {
+    color: #0f4875;
+}
+/* Cor de fundo azul marinho escuro */
+.dark-navy-blue-bg {
+    background-color: #0f4875;
+}
+
+/* Cor de texto azul vivo */
+.bright-blue {
+    color: #227cea;
+}
+/* Cor de fundo azul vivo */
+.bright-blue-bg {
+    background-color: #227cea;
+}
+
+/* Cor de texto azul intermediário */
+.intermediate-blue {
+    color: #259bd8;
+}
+/* Cor de fundo azul intermediário */
+.intermediate-blue-bg {
+    background-color: #259bd8;
+}
+
+/* Cor de texto verde brilhante */
+.bright-green {
+    color: #21eaca;
+}
+/* Cor de fundo verde brilhante */
+.bright-green-bg {
+    background-color: #21eaca;
+}
+
+/* Cor de texto verde marinho */
+.marine-green {
+    color: #5de6ba;
+}
+/* Cor de fundo verde marinho */
+.marine-green-bg {
+    background-color: #5de6ba;
+}
