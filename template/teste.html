@@ -1,0 +1,174 @@
+<!-- APENAS UM TESTE QUE GEREI COM IA -->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Código - CodeMirror</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- CodeMirror CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    
+    <style>
+        /* Apenas customizações específicas que o Bootstrap não cobre */
+        /*Quando o code mirror é adicionao ele vem com essas classes*/
+        .CodeMirror {
+            font-size: 14px;
+            border: none;
+            height: 100% !important;
+        }
+        .CodeMirror-scroll {
+            height: 100% !important;
+        }
+        
+        .editor-container {
+            flex: 1;
+            min-height: 0;
+        }
+        
+        .output-content {
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            background-color: #0d1117;
+        }
+        
+        .section-title {
+            background-color: #343a40;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body class="m-0 p-0 overflow-hidden">
+    <div class="container-fluid vh-100 p-0">
+        <div class="row h-100 g-0">
+            <!-- Coluna Esquerda - Descrição do Problema -->
+            <div class="col-8 bg-light p-3 overflow-auto border-end">
+                <h2 class="mb-4">Questão 1: Olá Mundo</h2>
+                
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Descrição do Problema</h5>
+                                <p class="card-text">
+                                    Escreva um programa que exiba a mensagem "Olá, Mundo!" na tela.
+                                </p>
+                                <p class="card-text">
+                                    <strong>Instruções:</strong><br>
+                                    • Use console.log() para exibir a mensagem<br>
+                                    • A mensagem deve ser exatamente: "Olá, Mundo!"<br>
+                                    • Clique em "Executar Código" para testar
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h6 class="card-subtitle mb-2 text-muted">Exemplo de Entrada:</h6>
+                                <pre class="bg-light p-2 mb-0"><code>(nenhuma)</code></pre>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-subtitle mb-2 text-muted">Exemplo de Saída:</h6>
+                                <pre class="bg-light p-2 mb-0"><code>Olá, Mundo!</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Coluna Direita - Editor e Console -->
+            <div class="col-4 d-flex flex-column p-0">
+                <!-- Editor de Código -->
+                <div class="flex-fill d-flex flex-column border-bottom bg-dark">
+                    <div class="section-title p-2">📝 Editor de Código</div>
+                    <div class="editor-container">
+                        <textarea id="codeEditor">// Seu código aqui
+console.log("Olá, Mundo!");</textarea>
+                    </div>
+                    <div class="p-3">
+                        <button class="btn btn-primary w-100" id="btnExecutar">
+                            ▶️ Executar Código
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Console de Saída -->
+                <div class="flex-fill d-flex flex-column bg-dark">
+                    <div class="section-title p-2">💻 Saída do Programa</div>
+                    <div class="output-content flex-fill p-3 overflow-auto" id="output">&gt; Aguardando execução...</div>
+                    <div class="p-3">
+                        <button class="btn btn-success w-100">✓ Submeter Solução</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- CodeMirror JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    
+    <script>
+        // Inicializar CodeMirror
+        const editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
+            mode: 'javascript',
+            theme: 'dracula',
+            lineNumbers: true,
+            autoCloseBrackets: true,
+            matchBrackets: true,
+            indentUnit: 4,
+            tabSize: 4,
+            lineWrapping: true,
+            viewportMargin: Infinity
+        });
+        
+        // Forçar refresh do editor após carregamento
+        setTimeout(() => {
+            editor.refresh();
+        }, 100);
+        
+        // Refresh quando a janela for redimensionada
+        window.addEventListener('resize', () => {
+            editor.refresh();
+        });
+        
+        // Executar código
+        document.getElementById('btnExecutar').addEventListener('click', function() {
+            const code = editor.getValue();
+            const output = document.getElementById('output');
+            
+            output.style.color = '#00ff00';
+            
+            try {
+                let logs = [];
+                const originalLog = console.log;
+                console.log = function(...args) {
+                    logs.push(args.join(' '));
+                    originalLog.apply(console, args);
+                };
+                
+                eval(code);
+                console.log = originalLog;
+                
+                output.textContent = logs.length > 0 
+                    ? '> Executado com sucesso!\n\n' + logs.join('\n')
+                    : '> Código executado sem saída.';
+            } catch (error) {
+                output.textContent = '> ❌ Erro:\n\n' + error.message;
+                output.style.color = '#ff6b6b';
+            }
+        });
+    </script>
+</body>
+</html>
