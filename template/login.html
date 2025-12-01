@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DevRápido</title>
-    <link rel="stylesheet" href="style.css" />
-    
-    <!-- Versaõ diferente de Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link href="../static/css/style.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../static/assets/vetor_professor.jpg.jpg">
     
     <style>
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
         body {
+            background: linear-gradient(135deg, #4a68ff, #7da2ff);
             height: 100vh;
             display: flex;
             align-items: center;
@@ -20,82 +23,93 @@
         }
 
         .container {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .login-card {
             background: #fff;
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0px 5px 20px rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 420px;
-            }
-    
+        }
 
         h2 {
             text-align: center;
-            margin-bottom: 16px;
+            margin-bottom: 25px;
         }
 
-        label {
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        input {
+        form input[type="email"],
+        form input[type="senha"] {
             width: 100%;
-            padding: 6px;
-            margin-top: 3px;
-            margin-bottom: 12px;
+            padding: 15px;
             border: 1px solid #ccc;
             border-radius: 25px;
+            outline: none;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
             font-size: 14px;
+            margin-bottom: 20px;
         }
 
-        .toggle-btn {
-            cursor: pointer;
-            font-size: 12px; 
-            margin-top: -8px;
-            display: block;
-            text-align: right;
-            color: #0077cc;
-        }
-
-        button {
+        .btn {
             width: 100%;
+            padding: 12px;
+            border-radius: 25px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .login-btn {
             background: #4764ff;
             color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 18px; 
+        }
+
+        .links {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .links a {
+            color: #4764ff;
+            font-size: 14px;
+            text-decoration: none;
         }
     </style>
 </head>
+<body>
 
-<body class="bright-blue-bg">
-
-    <div class="container">
-        <h2>Cadastro de Professor</h2>
-
-        <form id="form">
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" minlength="3" required>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-
-            <label for="senha">Senha:</label>
-            <input type="password" id="senha" name="senha" minlength="8" required>
-            <span class="toggle-btn" onclick="showPass('senha')">Mostrar senha</span>
-
-            <label for="confirmar">Confirmar senha:</label>
-            <input type="password" id="confirmar" name="confirmar" required>
-            <span class="toggle-btn" onclick="showPass('confirmar')">Mostrar senha</span>
-
-            <div id="erroConfirmacao" class="alert alert-danger" style="display:none;"></div>
-
-            <button type="submit" class="m-1 p-2">Cadastrar</button>
-        </form>
+    <div class="image-side">
+            <img src="../static/assets/vetor_professor.png.png" alt="Imagem da Tela de Login">
     </div>
 
-    <script src="../static/js/login.js"></script>
+    <div class="container">
+        <div class="login-card">
+
+            <h2>Seja Bem-vindo!</h2>
+
+            <form id="loginForm">
+                <input type="email" placeholder="Insira o endereço de e-mail..." id="email" required>
+                <input type="senha" placeholder="senha" id="senha" required>
+
+                <button type="submit" class="btn login-btn">Login</button>
+
+                <div class="links">
+                    <a href="#">Esqueceu sua senha?</a>
+                    <a href="#">Criar uma Conta!</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
 </body>
 </html>
