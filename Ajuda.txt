@@ -4,7 +4,7 @@ Template: https://startbootstrap.com/previews/sb-admin-2
 Figma(Em breve): 
 
 Paleta de cores:
-#5e605f
+#5e605f 
 #0f4875
 #227cea
 #259bd8
