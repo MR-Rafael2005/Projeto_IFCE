@@ -2,7 +2,7 @@
 
 // Toda estrutura do form sendo obtidas por funções, ao inves de chamar uma variavel vc chama uma função
 const form = {
-    form: () => document.getElementById("form"),
+    form: () => document.getElementById("loginForm"),
     senha: () => document.getElementById("senha"),
     confirmar: () => document.getElementById("confirmar"),
     erro: () => document.getElementById("erroConfirmacao")
