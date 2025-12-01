@@ -112,7 +112,8 @@
                         </select>
                     </div>
                     <div class="editor-container">
-                        <textarea id="codeEditor">// Seu código aqui, tente console.log("Olá, Mundo!");</textarea>
+                        <textarea id="codeEditor">// Seu código aqui, tente console.log("Olá, Mundo!");</textarea> <!-- Ao usar CodeMirror -->
+                        <!-- <div id="editor" style="height: 100%; width: 100%;"></div>  --> <!-- Ao usar Monaco Editor -->
                     </div>
                     <div class="p-3 d-flex justify-content-between mr-3">
                         <button class="btn btn-primary" id="btnExecutar" onclick="executeCode()">
@@ -144,6 +145,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
     <script src="../static/js/codeEditor.js"></script>
+
+    <!-- Monaco Editor Ainda em desenvolvimento -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
+    <script src="../static/js/monacoEditor.js"></script> -->
 
     <!-- Template Bootstrap (JS) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

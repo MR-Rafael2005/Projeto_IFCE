@@ -1,5 +1,6 @@
 //O setup e execução do editor de código
 //Linguagens Suportadas: JavaScript
+//Talvez seja uma boa mudar de editor para o monaco, ja que o monaco tem o intellisense
 
 // Inicializar CodeMirror(Importado por CDN) colocando ele numa textarea existente
 const editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
