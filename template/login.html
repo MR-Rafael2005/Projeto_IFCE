@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevRápido</title>
     <link rel="stylesheet" href="style.css" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    
+    <!-- Versaõ diferente de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="../static/css/style.css" rel="stylesheet">
+    
     <style>
         
         body {
-            background: linear-gradient(135deg, #4a68ff, #7da2ff);
             height: 100vh;
             display: flex;
             align-items: center;
@@ -57,7 +60,6 @@
 
         button {
             width: 100%;
-            padding: 8px;
             background: #4764ff;
             color: white;
             border: none;
@@ -65,62 +67,35 @@
             cursor: pointer;
             font-size: 18px; 
         }
-
-        .error {
-            color: red;
-            font-size: 10px; 
-            margin-top: -8px;
-            margin-bottom: 8px;
-        }
     </style>
 </head>
 
-<body>
+<body class="bright-blue-bg">
 
     <div class="container">
         <h2>Cadastro de Professor</h2>
 
         <form id="form">
             <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required>
+            <input type="text" id="nome" name="nome" minlength="3" required>
 
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
 
             <label for="senha">Senha:</label>
             <input type="password" id="senha" name="senha" minlength="8" required>
-            <span class="toggle-btn" onclick="toggleSenha('senha')">Mostrar senha</span>
+            <span class="toggle-btn" onclick="showPass('senha')">Mostrar senha</span>
 
             <label for="confirmar">Confirmar senha:</label>
             <input type="password" id="confirmar" name="confirmar" required>
-            <span class="toggle-btn" onclick="toggleSenha('confirmar')">Mostrar senha</span>
+            <span class="toggle-btn" onclick="showPass('confirmar')">Mostrar senha</span>
 
-            <div id="erroConfirmacao" class="error"></div>
+            <div id="erroConfirmacao" class="alert alert-danger" style="display:none;"></div>
 
-            <button type="submit">Cadastrar</button>
+            <button type="submit" class="m-1 p-2">Cadastrar</button>
         </form>
     </div>
 
-<script>
-    function toggleSenha(idCampo) {
-        const campo = document.getElementById(idCampo);
-        campo.type = campo.type === "password" ? "text" : "password";
-    }
-
-    const senha = document.getElementById("senha");
-    const confirmar = document.getElementById("confirmar");
-    const erro = document.getElementById("erroConfirmacao");
-    const form = document.getElementById("form");
-
-    form.addEventListener("submit", function(e) {
-        if (senha.value !== confirmar.value) {
-            e.preventDefault();
-            erro.textContent = "As senhas não coincidem!";
-        } else {
-            erro.textContent = "";
-        }
-    });
-</script>
-
+    <script src="../static/js/login.js"></script>
 </body>
 </html>
