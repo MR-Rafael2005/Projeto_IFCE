@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Template Base</title>
 
+    <!-- CodeMirror CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+
     <!-- CSS -->
     <link href="../static/css/style.css" rel="stylesheet">
 
@@ -17,7 +21,36 @@
     <link href="https://cdn.jsdelivr.net/npm/startbootstrap-sb-admin-2@4.1.4/css/sb-admin-2.min.css" rel="stylesheet">
 
     <style>
+        /* Apenas customizações específicas que o Bootstrap não cobre */
+        /*Quando o code mirror é adicionao ele vem com essas classes*/
+        .CodeMirror {
+            font-size: 14px;
+            border: none;
+            height: 100% !important;
+        }
+        .CodeMirror-scroll {
+            height: 100% !important;
+        }
         
+        .editor-container {
+            flex: 1;
+            min-height: 0;
+        }
+        
+        .output-content {
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            background-color: #0d1117;
+        }
+        
+        .section-title {
+            background-color: #343a40;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
     </style>
 </head>
 
@@ -27,12 +60,14 @@
         <div class="row h-100 g-0">  
             <!-- Area de exibição -->
             <div class="col-8 dark-gray-bg overflow-auto border-end p-3 h-100">
-                <div class="container marine-green d-flex justify-content-between">
-                    <h3>Pagina 1</h3>
-                    <p>Aula de Ola Mundo</p>
+                <div class="card mb-4 shadow-sm border-0 bg-primary text-white">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                    <h3 class="mb-0">Página 1</h3>
+                    <span class="fs-5">Aula de Olá Mundo</span>
+                    </div>
                 </div>
 
-                <div class="container border border-primary rounded dark-navy-blue-bg"">
+                <div class="container-fluid m-1 border border-primary rounded bg-light">
                     <div class="row">
                         <div class="col-12 p-3 ">
                             <!-- HTML deve ser colocado aqui do banco de dados -->
@@ -56,22 +91,64 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    
                                     </div>
                                 </body>
                             </html>
                         </div>
                     </div>
                 </div>
-
+            </div>
                 
-                <!-- Area de código -->
-                <div class="col-4">
-                    
+            <!-- Area de código -->
+            <div class="col-4 p-0 h-100">
+                    <!-- Editor de Código -->
+                <div class="d-flex flex-column bg-dark h-50">
+                    <div class="section-title p-2 d-flex justify-content-between align-items-center">📝 Editor de Código
+                        <!-- Seleção de codigo mas so tem javascript ate agora -->
+                        <select id="languageSelect" class="form-select w-auto mr-3">
+                            <option value="javascript" selected>JavaScript</option>
+                            <option disabled value="python">Python</option>
+                            <option disabled value="c">C</option>
+                        </select>
+                    </div>
+                    <div class="editor-container">
+                        <textarea id="codeEditor">// Seu código aqui, tente console.log("Olá, Mundo!");</textarea> <!-- Ao usar CodeMirror -->
+                        <!-- <div id="editor" style="height: 100%; width: 100%;"></div>  --> <!-- Ao usar Monaco Editor -->
+                    </div>
+                    <div class="p-3 d-flex justify-content-between mr-3">
+                        <button class="btn btn-primary" id="btnExecutar" onclick="executeCode()">
+                            ▶️ Executar Código
+                        </button>
+                        <button class="btn btn-secondary" onclick="downloadCode()">
+                            💾 Baixar Código
+                        </button>
+                        <button class="btn btn-danger" onclick="clearCode()">
+                            🧹 Limpar Código
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Console de Saída -->
+                <div class="d-flex flex-column bg-dark p-0 h-50">
+                    <div class="section-title p-2">💻 Saída do Programa</div>
+                    <div class="output-content flex-fill p-3 overflow-auto" id="output">&gt; Aguardando execução...</div>
+                    <div class="p-3 d-flex justify-content-between mr-3">
+                        <button class="btn btn-success">✓ Submeter Solução</button>
+                        <button class="btn btn-primary" onclick="clearOutput()">🧹 Limpar saída</button>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
+    <!-- CodeMirror JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="../static/js/codeEditor.js"></script>
+
+    <!-- Monaco Editor Ainda em desenvolvimento -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
+    <script src="../static/js/monacoEditor.js"></script> -->
 
     <!-- Template Bootstrap (JS) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

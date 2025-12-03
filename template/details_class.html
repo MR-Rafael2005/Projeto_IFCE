@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Aula</title>
+
+
+    <!-- CSS -->
+    <link href="../static/css/style.css" rel="stylesheet" />
+
+
+    <!-- Template Bootstrap (CSS/Icons) -->
+    <link href="https://cdn.jsdelivr.net/npm/startbootstrap-sb-admin-2@4.1.4/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"  rel="stylesheet"/>
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+ 
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    
+    <style>
+
+        .tabela_participantes{
+
+            width: 700px;
+            max-width: 700px; /* Largura máxima que o elemento pode atingir */
+            width: 100%;     /* Ocupa 100% da largura do pai, a menos que atinja max-width */
+            margin: 0 auto;  /* Centraliza o bloco na página (opcional, mas comum) */
+            
+            /* Outros estilos visuais para demonstração */
+            padding: 20px;
+            box-sizing: border-box; /* Garante que padding e border sejam incluídos na largura total */
+        }
+
+
+  
+        .tabela_questoes{
+
+
+            width: 900px;
+            max-width: 900px; /* Largura máxima que o elemento pode atingir */
+            width: 100%;     /* Ocupa 100% da largura do pai, a menos que atinja max-width */
+            margin: 0 auto;  /* Centraliza o bloco na página (opcional, mas comum) */
+            
+            /* Outros estilos visuais para demonstração */
+            padding: 20px;
+            box-sizing: border-box; /* Garante que padding e border sejam incluídos na largura total */
+
+        }
+
+        .botoes_ver_editar{
+            width: 90px;
+            max-width: 90px; /* Largura máxima que o elemento pode atingir */
+            
+            padding: 2px;
+            padding-right: 2px;
+            padding-left: 2px;
+            box-sizing: border-box; /* Garante que padding e border sejam incluídos na largura total */
+
+        }
+    
+    </style>
+</head>
+
+<!--IMPORTANTE________________________________________________________falta fazer botoes de açoes para professor:
+Um professor sempre quer ver isso.
+
+ 5. Ações que o professor pode fazer
+Botões no topo, tipo:
+Reutilizar aula
+Editar aula
+Excluir aula
+Exportar relatório (opcional)
+Ver como o aluno vê
+
+6. Seções opcionais (pode deixar para depois)
+Log de atividades (quem entrou, quem saiu, quando enviaram)
+Comentários enviados pelos alunos
+Estatísticas por exercício (gráficos)
+Nada disso é obrigatório, mas enriquece se você tiver tempo.-->
+
+
+<body>
+
+    <div id="wrapper">      
+        
+        
+       
+    
+
+        <!-- Conteudo da pagina -->
+        <div class="container-fluid">
+
+            <!--cabeçalho do site-->
+            <div class="card-header py-3 ml-1">
+                
+
+
+                 <!-- row - Usamos d-flex para garantir comportamento flexível consistente -->
+                 <div class="row d-flex align-items-center">
+
+                    <!-- Coluna do Botão - Ocupa um pequeno espaço fixo na esquerda -->
+                    <!-- w-auto garante que ocupe apenas o espaço necessário -->
+                    <div class="col-auto w-auto mr-3">
+                        <a href="dashboard.html" class="btn btn-primary">Botão Esquerdo</a>
+                    </div>
+
+                
+                    <!-- Coluna do Título - Ocupa o espaço restante e centraliza seu próprio texto -->
+                    <!-- flex-grow-1 faz essa div expandir para ocupar o espaço restante -->
+                    <!-- text-center centraliza o texto dentro dessa div -->
+                    <div>
+                        <h6 class="col-auto h4 mb-2 text-gray-800 font-weight-bold text-center"> Detalhes da Aula</h6>
+                    </div>
+
+                 </div><!--fim do row-->   
+
+                
+                
+            </div>
+            
+            <!--informaçoes cards-->
+            <div class="card_informacoes_basicas d-flex  justify-content-center">
+
+
+                 <!-- card do (ID) da sala -->
+                 <div class="card mb-4 py-3 border-left-primary mr-2 w-25">   
+                    <div class="card-body ">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    ID da aula</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">#89739288</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fa-id-badge fa-regular fa-2x text-gray-650"></i>                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- card da (Data de Criação) da sala -->
+                <div class="card mb-4 py-3 border-left-primary mr-2 w-25">    
+                    <div class="card-body ">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Data de criação</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">08/09/2025</div>
+                            </div>
+                            <div class="col-auto"> 
+                                <i class="fa-regular fa-calendar fa-2x text-gray-650"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+
+                <!-- card da (Data de Criação) da sala -->
+                <div class="card mb-4 py-3 border-left-primary w-25">    
+                    <div class="card-body ">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Última vez utilizada</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">15/12/2025</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-650"></i>       
+                             </div>
+                        </div>
+                    </div>
+                </div>    
+
+
+            </div><!-- fim do cards informçoes basicas -->
+
+            <!--descrriçao e titulo da aula-->
+            <div class="Descriçao da aula w-75 mx-auto">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary"> Aula: Desenvolvimento Web Html</h6>
+                    </div>
+                    <div class="card-body">
+                        <p>Esta aula de demonstração tem como objetivo fornecer uma compreensão fundamental do HTML (Linguagem de Marcação de HiperTexto), 
+                            que é o bloco de construção mais básico e essencial para a criação de páginas web. Os participantes aprenderão a estrutura
+                            básica de um documento web e como utilizar as tags principais para dar 
+                            significado e estrutura ao conteúdo digital.
+                            <p>Objetivos de Aprendizagem
+                            Ao final desta demonstração, os participantes serão capazes de:
+                            <p>Compreender o papel do HTML no desenvolvimento web, em conjunto com CSS e JavaScript.
+                            <p>Criar a estrutura básica de uma página web, incluindo as tags.
+                        <p>Utilizar tags de texto comuns, como títulos, parágrafos e quebras de linha.
+                            Adicionar elementos multimídia básicos, como linke imagens.</p>
+                        
+                    </div>
+                </div>
+            </div><!--fim da descricao da aula--> 
+
+
+
+
+
+            <!--informaçoes gerais-->
+            <div>
+                <!-- Este novo contêiner gerencia a largura e a centralização das linhas e colunas 2x2 -->
+                <div class="w-75 mx-auto"> 
+                       
+                    <h1 class="h3 mb-3 text-gray-800 ">Informaçoes Gerais</h1><!--titulo-->
+                        
+
+                    <!--row-->
+                    <div class="row">
+
+                        <!--card Quantidade de alunos -->
+                        <div class="col-xl-6 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Quantidade de alunos</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">26</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fa-solid fa-person fa-2x text-gray-450"></i>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--card numero de questoes -->
+                        <div class="col-xl-6 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Número de questões
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">15</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fa-solid fa-pen fa-2x text-gray-450"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--card com barra de progresso, taxa media de acertos -->
+                        <div class="col-xl-6 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Taxa média de acertos
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">67%</div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="progress progress-sm mr-2">
+                                                        <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-450"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- card submissoes feitas -->
+                        <div class="col-xl-6 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                Submissões feitas</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fa-solid fa-paper-plane fa-2x text-gray-450"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                         <!-- teste -->
+                        <div class="col-xl-6 col-md-6 mx-auto mb-4">
+                            <div class="card border-left-dark shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+                                                Duração total</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">3h 45m</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fa-solid fa-clock fa-2x text-gray-450"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!--fim da row-->
+                </div><!-- Fim do contêiner que gerencia a largura e a centralização das linhas e colunas 2x2 -->
+
+            </div><!--FIM das informaçoes gerais-->
+
+
+
+
+
+
+
+            <!-- tabela de participantes -->
+            <div class="tabela_questoes mx-auto">
+            
+                <!-- titulo destacado azul -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Lista de Questões (exercícios)</h6>
+                    </div>
+
+
+                    <!-- tabela de participantes e questoes -->
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Nome da questão</th>
+                                        <th>Nível Entrou às</th>
+                                        <th>Linguagem permitida</th>
+                                        <th>Taxa de acertos</th>
+                                        <th>Submissões</th>
+                                    </tr>
+                                </thead>
+
+                                <tfoot>
+                                    <tr>
+                                        <th>Nome da questão</th>
+                                        <th>Nível (fácil/médio/difícil)</th>
+                                        <th>Linguagem permitida</th>
+                                        <th>Taxa de acertos</th>
+                                        <th>Submissões</th>
+                                    </tr>
+                                </tfoot>
+
+                                <tbody>
+                                    <tr>
+                                        <td>questão 1 POO</td>
+                                        <td>Médio</td>
+                                        <td>C</td>
+                                        <td>78%</td>
+                                        <td>17</td>
+                                          <!--botoes de ver e editar as questoes-->
+                                          <td><button class="botoes_ver_editar btn btn-primary mb-1 mx-auto">Ver</button> <button class="botoes_ver_editar btn btn-primary">Editar</button> </td>
+                                    </tr>
+                                    <tr>
+                                        <td>questão 2 condicionais</td>
+                                        <td>Facil</td>
+                                        <td>python</td>
+                                        <td>86%</td>
+                                        <td>18</td>
+                                          <!--botoes de ver e editar as questoes-->
+                                          <td><button class="botoes_ver_editar btn btn-primary mb-1 mx-auto">Ver</button> <button class="botoes_ver_editar btn btn-primary">Editar</button> </td>
+                                    </tr>
+                                    <tr>
+                                        <td>questão 3 if</td>
+                                        <td>Facil</td>
+                                        <td>python</td>
+                                        <td>76%</td>
+                                        <td>13</td>
+
+                                        <!--botoes de ver e editar as questoes-->
+                                        <td><button class="botoes_ver_editar btn btn-primary mb-1 mx-auto">Ver</button> <button class="botoes_ver_editar btn btn-primary">Editar</button> </td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.tabela_participantes -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- tabela de participantes -->
+            <div class="tabela_participantes">
+            
+                <!-- titulo destacado azul -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Tabela Participantes</h6>
+                    </div>
+
+
+                    <!-- tabela de participantes e questoes -->
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Alunos</th>
+                                        <th>Entrou às</th>
+                                        <th>Acertos</th>
+                                        <th>Erros</th>
+                                        <th>Submissões</th>
+                                    </tr>
+                                </thead>
+
+                                <tfoot>
+                                    <tr>
+                                        <th>Alunos</th>
+                                        <th>Entrou às</th>
+                                        <th>Acertos</th>
+                                        <th>Erros</th>
+                                        <th>Submissões</th>
+                                    </tr>
+                                </tfoot>
+
+                                <tbody>
+                                    <tr>
+                                        <td>João Gomes</td>
+                                        <td>5h35m</td>
+                                        <td>9</td>
+                                        <td>4</td>
+                                        <td>13</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ana Maria</td>
+                                        <td>4h28m</td>
+                                        <td>5</td>
+                                        <td>2</td>
+                                        <td>7</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Joana Dark</td>
+                                        <td>3h45m</td>
+                                        <td>8</td>
+                                        <td>2</td>
+                                        <td>10</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.tabela_participantes -->
+    
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/startbootstrap-sb-admin-2@4.1.4/js/sb-admin-2.min.js"> </script>
+   
+    
+
+
+        <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+</body>
+</html>
