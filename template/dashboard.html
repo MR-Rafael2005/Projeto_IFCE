@@ -90,7 +90,7 @@
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link text-dark" href="#">
+                  <a class="nav-link text-dark" href="criar-aula-exemplo.html">
                     <i class="fas fa-fw fa-cog mr-1"></i>
                     Criar aulas
                   </a>
@@ -356,6 +356,7 @@
               <div class="col-md-6 col-lg-6 col-xs-12 mb-3">
                 <div class="card">
                   <div class="card-body shadow">
+                    <p class="text-uppercase font-weight-bold">Aulas realizadas</p>
                     <div class="form-group mb-3">
                       <input
                         type="text"
@@ -366,7 +367,7 @@
                     </div>
 
                     <div class="table-responsive m" style="max-height: 400px">
-                      <table class="table table-striped">
+                      <table class="table table-striped" id="table-realizadas">
                         <thead>
                           <tr>
                             <th scope="col">ID</th>
@@ -400,9 +401,9 @@
                   </div>
                 </div>
               </div>
-              <div class="col-xs-12 col-md-6">
+              <div class="col-xs-12 col-md-6 mb-3">
                 <div class="card">
-                  <div class="card-body">
+                  <div class="card-body shadow">
                     <ul class="list-group">
                       <li class="list-group-item"><i class="bi bi-circle-fill text-success"></i> Aula ativa</li>
                       <li class="list-group-item">Código: 1552</li>
@@ -410,6 +411,88 @@
                       <li class="list-group-item">Última pergunta respondida: Q3</li>
                       <button class="list-group-item btn-primary active">Encerrar aula</button>
                     </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-xs-12 mb-3">
+                <div class="card">
+                  <div class="card-body shadow">
+                    <div class="table-responsive m" style="max-height: 400px">
+                        <p class="text-uppercase font-weight-bold">Ultimas aulas criadas</p>
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Disciplinas</th>
+                            <th scope="col">Curso</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Apresentar</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">12</th>
+                            <td>Desenvolvimento Web II</td>
+                            <td>Informática p/ internet</td>
+                            <td>08/12/2025</td>
+                            <td class="text-center"><a href="presentation_professor.html"><i class="fas fa-play"></i></a></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">18</th>
+                            <td>Engenharia de Software</td>
+                            <td>Informática p/ internet</td>
+                            <td>09/12/2025</td>
+                            <td class="text-center"><a href="presentation_professor.html"><i class="fas fa-play"></i></a></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">29</th>
+                            <td>Banco de Dados</td>
+                            <td>Informática p/ internet</td>
+                            <td>06/12/2025</td>
+                            <td class="text-center"><a href="presentation_professor.html"><i class="fas fa-play"></i></a></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-xs-12">
+                <div class="card">
+                  <div class="card-body">
+                    <p class="text-uppercase font-weight-bold">Coleções</p>
+                    <div class="form-group mb-3">
+                      <input
+                        type="text"
+                        class="form-control form-control-sm"
+                        id="inputSearch"
+                        placeholder="Pesquisar..."
+                      />
+                    </div>
+                    <div class="table-responsive m" style="max-height: 400px">
+                      <table class="table table-striped" id="table-collection">
+                        <thead>
+                          <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Coleção</th>
+                            <th scope="col">Qtd de Aulas</th>
+                            <th scope="col">Data de Criação</th>
+                            <th scope="col">Listar</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">12</th>
+                            <td>Desenvolvimento Web II</td>
+                            <td>4</td>
+                            <td>08/12/2025</td>
+                            <td class="text-center"><a href="./listagem-aulas.html"><i class="bi bi-collection"></i></a></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
