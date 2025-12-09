@@ -1,0 +1,1256 @@
+<!-- Página para criação de aulas pelo professor - COM EXEMPLO DE USO -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Nova Aula - Exemplo</title>
+
+    <!-- Quill Editor CSS (WYSIWYG Editor) -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link href="../static/css/style.css" rel="stylesheet">
+
+    <!-- Template Bootstrap (CSS/Icons) -->
+    <link href="https://fonts.googleapis.com/css? family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/startbootstrap-sb-admin-2@4.1.4/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            overflow:  hidden;
+        }
+
+        . main-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-section {
+            background-color: #4e73df;
+            color: white;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .content-section {
+            flex: 1;
+            display: flex;
+            overflow:  hidden;
+        }
+
+        /* Coluna Esquerda - Preview */
+        .left-column {
+            width: 250px;
+            background-color:  #f8f9fc;
+            border-right: 2px solid #e3e6f0;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .left-column-header {
+            padding: 1rem;
+            background-color:  #fff;
+            border-bottom: 2px solid #e3e6f0;
+            font-weight: bold;
+            color: #5a5c69;
+        }
+
+        . pages-preview {
+            flex: 1;
+            overflow-y: auto;
+            padding:  0.5rem;
+        }
+
+        .page-preview-item {
+            background:  white;
+            border: 2px solid #e3e6f0;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .page-preview-item:hover {
+            border-color: #4e73df;
+            box-shadow: 0 2px 8px rgba(78, 115, 223, 0.2);
+        }
+
+        .page-preview-item.active {
+            border-color: #4e73df;
+            background-color: #eef2ff;
+        }
+
+        .page-preview-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.7rem;
+            font-weight:  bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge-exercise {
+            background-color: #1cc88a;
+            color: white;
+        }
+
+        .badge-explanation {
+            background-color: #36b9cc;
+            color: white;
+        }
+
+        .page-preview-title {
+            font-size: 0.85rem;
+            font-weight:  bold;
+            color: #5a5c69;
+            margin-bottom: 0.25rem;
+        }
+
+        . page-preview-number {
+            font-size: 0.75rem;
+            color: #858796;
+        }
+
+        /* Coluna Central - Editor */
+        .center-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background-color: white;
+        }
+
+        .editor-header {
+            padding: 1rem 1.5rem;
+            background-color: #fff;
+            border-bottom: 2px solid #e3e6f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .editor-content {
+            flex: 1;
+            overflow-y: auto;
+            padding:  1.5rem;
+        }
+
+        .quill-editor {
+            height: 100%;
+            min-height: 500px;
+            border: 1px solid #e3e6f0;
+            border-radius:  0.5rem;
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color:  #858796;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom:  1rem;
+            opacity: 0.3;
+        }
+
+        /* Coluna Direita - Controles */
+        .right-column {
+            width: 320px;
+            background-color:  #f8f9fc;
+            border-left: 2px solid #e3e6f0;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .right-column-section {
+            background:  white;
+            margin:  1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .right-column-section-header {
+            padding: 0.75rem 1rem;
+            background-color: #4e73df;
+            color:  white;
+            font-weight:  bold;
+            font-size: 0.9rem;
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+
+        .right-column-section-body {
+            padding: 1rem;
+        }
+
+        . page-type-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom:  1rem;
+        }
+
+        .page-type-card {
+            border: 2px solid #e3e6f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .page-type-card:hover {
+            border-color: #4e73df;
+            background-color: #f8f9fc;
+        }
+
+        .page-type-card.selected {
+            border-color: #4e73df;
+            background-color: #eef2ff;
+        }
+
+        .page-type-card i {
+            font-size: 2rem;
+            margin-bottom:  0.5rem;
+        }
+
+        .page-type-card. exercise i {
+            color: #1cc88a;
+        }
+
+        .page-type-card.explanation i {
+            color: #36b9cc;
+        }
+
+        .page-type-card . type-label {
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        /* Tabs do Editor */
+        .editor-tabs {
+            display: flex;
+            border-bottom: 2px solid #e3e6f0;
+            background-color: #f8f9fc;
+        }
+
+        .editor-tab {
+            padding: 0.75rem 1. 5rem;
+            cursor: pointer;
+            border:  none;
+            background: transparent;
+            color: #858796;
+            font-weight:  500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        . editor-tab:hover {
+            background-color: #fff;
+            color: #4e73df;
+        }
+
+        .editor-tab.active {
+            background-color: #fff;
+            color: #4e73df;
+            border-bottom-color:  #4e73df;
+        }
+
+        .tab-content-area {
+            display: none;
+            height: 100%;
+        }
+
+        .tab-content-area.active {
+            display: block;
+        }
+
+        . preview-area {
+            border: 2px dashed #dee2e6;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            min-height: 400px;
+            background-color: #fff;
+        }
+
+        /* Configurações de Exercício */
+        .exercise-config {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #f8f9fc;
+            border-radius: 0.5rem;
+            border: 1px solid #e3e6f0;
+        }
+
+        .exercise-config. show {
+            display: block;
+        }
+
+        /* Scrollbar customizada */
+        .pages-preview::-webkit-scrollbar,
+        .right-column: :-webkit-scrollbar,
+        .editor-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .pages-preview::-webkit-scrollbar-track,
+        . right-column::-webkit-scrollbar-track,
+        .editor-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .pages-preview::-webkit-scrollbar-thumb,
+        .right-column::-webkit-scrollbar-thumb,
+        .editor-content::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        .pages-preview::-webkit-scrollbar-thumb:hover,
+        .right-column::-webkit-scrollbar-thumb:hover,
+        .editor-content::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        . delete-page-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: #e74a3b;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition:  opacity 0.2s;
+        }
+
+        .page-preview-item:hover .delete-page-btn {
+            opacity: 1;
+        }
+
+        .delete-page-btn:hover {
+            background: #c0392b;
+        }
+
+        /* Ajustes do Quill */
+        . ql-editor {
+            min-height: 400px;
+            font-size: 16px;
+        }
+
+        .ql-container {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        /* Dicas de uso */
+        .usage-tip {
+            background-color: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border-radius: 0.25rem;
+            font-size: 0.85rem;
+        }
+
+        .usage-tip strong {
+            color: #0c5460;
+        }
+
+        /* Toolbar customizada */
+        . ql-toolbar {
+            background-color: #f8f9fc;
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+        }
+
+        /* HTML Editor */
+        #htmlEditor {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            border: 1px solid #e3e6f0;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+        <!-- Cabeçalho -->
+        <div class="header-section">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h4 class="mb-0">
+                        <i class="fas fa-chalkboard-teacher"></i> Criar Nova Aula
+                    </h4>
+                    <small id="lessonTitleDisplay">Introdução ao JavaScript - Olá Mundo</small>
+                </div>
+                <div>
+                    <button class="btn btn-light btn-sm mr-2" onclick="openLessonConfig()">
+                        <i class="fas fa-cog"></i> Configurações da Aula
+                    </button>
+                    <button class="btn btn-warning btn-sm mr-2" onclick="saveDraft()">
+                        <i class="fas fa-save"></i> Salvar Rascunho
+                    </button>
+                    <button class="btn btn-success btn-sm" onclick="saveLesson()">
+                        <i class="fas fa-check"></i> Publicar Aula
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteúdo Principal (3 colunas) -->
+        <div class="content-section">
+            <!-- COLUNA ESQUERDA - Preview das Páginas -->
+            <div class="left-column">
+                <div class="left-column-header">
+                    <i class="fas fa-layer-group"></i> Páginas da Aula
+                </div>
+                <div class="pages-preview" id="pagesPreview">
+                    <!-- Será preenchido dinamicamente -->
+                </div>
+            </div>
+
+            <!-- COLUNA CENTRAL - Editor de Conteúdo -->
+            <div class="center-column">
+                <div class="editor-header">
+                    <div>
+                        <h5 class="mb-0" id="currentPageTitle">O que é JavaScript?</h5>
+                        <small class="text-muted" id="currentPageType">Página de Explicação</small>
+                    </div>
+                    <div class="editor-tabs">
+                        <button class="editor-tab active" data-tab="visual" onclick="switchEditorTab('visual')">
+                            <i class="fas fa-edit"></i> Visual
+                        </button>
+                        <button class="editor-tab" data-tab="html" onclick="switchEditorTab('html')">
+                            <i class="fas fa-code"></i> HTML
+                        </button>
+                        <button class="editor-tab" data-tab="preview" onclick="switchEditorTab('preview')">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
+                    </div>
+                </div>
+
+                <div class="editor-content">
+                    <!-- Tab Visual -->
+                    <div class="tab-content-area active" id="visualTab">
+                        <div class="usage-tip">
+                            <strong>💡 Como usar o editor: </strong><br>
+                            • Digite normalmente como em um editor de texto<br>
+                            • Use a barra de ferramentas acima para formatar (negrito, cores, listas, etc)<br>
+                            • Clique no ícone de imagem para adicionar fotos<br>
+                            • Use os templates rápidos à direita para inserir cards prontos<br>
+                            • Troque para a aba "HTML" para ver/editar o código gerado
+                        </div>
+                        <div id="quillEditorContainer">
+                            <div id="quillEditor" class="quill-editor"></div>
+                        </div>
+                    </div>
+
+                    <!-- Tab HTML -->
+                    <div class="tab-content-area" id="htmlTab">
+                        <div class="usage-tip">
+                            <strong>💻 Editor HTML:</strong><br>
+                            • Aqui você vê o código HTML gerado pelo editor visual<br>
+                            • Você pode editar diretamente o HTML se preferir<br>
+                            • Clique em "Aplicar HTML ao Editor Visual" para sincronizar as mudanças
+                        </div>
+                        <textarea class="form-control" id="htmlEditor" rows="20"></textarea>
+                        <button class="btn btn-primary btn-sm mt-2" onclick="syncHtmlToEditor()">
+                            <i class="fas fa-sync"></i> Aplicar HTML ao Editor Visual
+                        </button>
+                    </div>
+
+                    <!-- Tab Preview -->
+                    <div class="tab-content-area" id="previewTab">
+                        <div class="usage-tip">
+                            <strong>👁️ Preview:</strong><br>
+                            • Aqui você vê exatamente como o aluno verá o conteúdo<br>
+                            • Este é o resultado final da sua página
+                        </div>
+                        <div class="preview-area" id="previewArea">
+                            <!-- Preview será gerado aqui -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLUNA DIREITA - Controles e Configurações -->
+            <div class="right-column">
+                <!-- Criar Nova Página -->
+                <div class="right-column-section">
+                    <div class="right-column-section-header">
+                        <i class="fas fa-plus-circle"></i> Nova Página
+                    </div>
+                    <div class="right-column-section-body">
+                        <label class="mb-2" style="font-size: 0.85rem; font-weight: bold;">Tipo de Página: </label>
+                        <div class="page-type-selector">
+                            <div class="page-type-card exercise" onclick="selectPageType('exercise')">
+                                <i class="fas fa-code"></i>
+                                <div class="type-label">Exercício</div>
+                            </div>
+                            <div class="page-type-card explanation" onclick="selectPageType('explanation')">
+                                <i class="fas fa-book-open"></i>
+                                <div class="type-label">Explicação</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-block" onclick="createNewPage()" id="createPageBtn" disabled>
+                            <i class="fas fa-plus"></i> Criar Página
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Configurações da Página Atual -->
+                <div class="right-column-section" id="pageConfigSection">
+                    <div class="right-column-section-header">
+                        <i class="fas fa-cog"></i> Configurações da Página
+                    </div>
+                    <div class="right-column-section-body">
+                        <div class="form-group">
+                            <label style="font-size: 0.85rem; font-weight: bold;">Título da Página</label>
+                            <input type="text" class="form-control form-control-sm" id="pageTitle" 
+                                   placeholder="Ex: Introdução ao JavaScript" onchange="updateCurrentPage()">
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-size: 0.85rem; font-weight: bold;">Tipo</label>
+                            <select class="form-control form-control-sm" id="pageTypeSelect" onchange="updateCurrentPage(); toggleExerciseConfig()">
+                                <option value="exercise">Exercício</option>
+                                <option value="explanation">Explicação</option>
+                            </select>
+                        </div>
+
+                        <!-- Configurações específicas de Exercício -->
+                        <div class="exercise-config" id="exerciseConfig">
+                            <h6 style="font-size: 0.85rem; font-weight: bold; margin-bottom: 0.75rem;">
+                                <i class="fas fa-check-circle"></i> Configurações de Exercício
+                            </h6>
+
+                            <div class="form-group">
+                                <label style="font-size: 0.8rem;">Código Inicial</label>
+                                <textarea class="form-control form-control-sm" id="startingCode" rows="4" 
+                                          style="font-family: monospace; font-size: 0.8rem;" onchange="updateCurrentPage()">// Seu código aqui</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label style="font-size:  0.8rem;">Saída Esperada</label>
+                                <textarea class="form-control form-control-sm" id="expectedOutput" rows="3" 
+                                          style="font-family: monospace; font-size: 0.8rem;" onchange="updateCurrentPage()"></textarea>
+                            </div>
+
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="autoValidate" onchange="updateCurrentPage()">
+                                <label class="form-check-label" style="font-size: 0.8rem;" for="autoValidate">
+                                    Validar automaticamente
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="allowDownload" checked onchange="updateCurrentPage()">
+                                <label class="form-check-label" style="font-size: 0.8rem;" for="allowDownload">
+                                    Permitir download
+                                </label>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-danger btn-sm btn-block mt-3" onclick="deleteCurrentPage()">
+                            <i class="fas fa-trash"></i> Excluir Página
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Templates Rápidos -->
+                <div class="right-column-section" id="templatesSection">
+                    <div class="right-column-section-header">
+                        <i class="fas fa-magic"></i> Templates Rápidos
+                    </div>
+                    <div class="right-column-section-body">
+                        <div class="btn-group-vertical w-100">
+                            <button class="btn btn-outline-primary btn-sm mb-2" onclick="insertTemplate('problem')">
+                                <i class="fas fa-puzzle-piece"></i> Card de Problema
+                            </button>
+                            <button class="btn btn-outline-info btn-sm mb-2" onclick="insertTemplate('explanation')">
+                                <i class="fas fa-book"></i> Card de Explicação
+                            </button>
+                            <button class="btn btn-outline-success btn-sm mb-2" onclick="insertTemplate('tip')">
+                                <i class="fas fa-lightbulb"></i> Dica
+                            </button>
+                            <button class="btn btn-outline-warning btn-sm mb-2" onclick="insertTemplate('warning')">
+                                <i class="fas fa-exclamation-triangle"></i> Aviso
+                            </button>
+                            <button class="btn btn-outline-secondary btn-sm mb-2" onclick="insertTemplate('code')">
+                                <i class="fas fa-code"></i> Bloco de Código
+                            </button>
+                            <button class="btn btn-outline-dark btn-sm" onclick="insertTemplate('two-columns')">
+                                <i class="fas fa-columns"></i> Duas Colunas
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ações -->
+                <div class="right-column-section">
+                    <div class="right-column-section-header">
+                        <i class="fas fa-tools"></i> Ações
+                    </div>
+                    <div class="right-column-section-body">
+                        <button class="btn btn-info btn-sm btn-block mb-2" onclick="previewLesson()">
+                            <i class="fas fa-eye"></i> Preview Completo
+                        </button>
+                        <button class="btn btn-secondary btn-sm btn-block" onclick="exportLesson()">
+                            <i class="fas fa-download"></i> Exportar JSON
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Configurações da Aula -->
+    <div class="modal fade" id="lessonConfigModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">
+                        <i class="fas fa-cog"></i> Configurações da Aula
+                    </h5>
+                    <button type="button" class="close text-white" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Título da Aula <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="lessonTitle" 
+                               placeholder="Ex:  Introdução ao JavaScript - Olá Mundo" onchange="updateLessonTitle()">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Descrição da Aula</label>
+                        <textarea class="form-control" id="lessonDescription" rows="3" 
+                                  placeholder="Breve descrição sobre o que os alunos aprenderão... "></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Categoria</label>
+                                <select class="form-control" id="lessonCategory">
+                                    <option value="">Selecione uma categoria</option>
+                                    <option value="javascript" selected>JavaScript</option>
+                                    <option value="python">Python</option>
+                                    <option value="c">Linguagem C</option>
+                                    <option value="web">Desenvolvimento Web</option>
+                                    <option value="algoritmos">Algoritmos</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nível de Dificuldade</label>
+                                <select class="form-control" id="lessonDifficulty">
+                                    <option value="beginner" selected>Iniciante</option>
+                                    <option value="intermediate">Intermediário</option>
+                                    <option value="advanced">Avançado</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Linguagem de Programação Padrão</label>
+                        <select class="form-control" id="defaultLanguage">
+                            <option value="javascript" selected>JavaScript</option>
+                            <option value="python">Python</option>
+                            <option value="c">C</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="updateLessonTitle()">
+                        <i class="fas fa-save"></i> Salvar Configurações
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quill Editor JS -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+    <!-- Template Bootstrap (JS) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/startbootstrap-sb-admin-2@4.1.4/js/sb-admin-2.min.js"></script>
+
+    <script>
+        // Estado Global
+        let quill;
+        let pages = [];
+        let currentPageIndex = null;
+        let selectedPageType = null;
+        let lessonConfig = {
+            title: 'Introdução ao JavaScript - Olá Mundo',
+            description: 'Aprenda os conceitos básicos de JavaScript criando seu primeiro programa',
+            category: 'javascript',
+            difficulty: 'beginner',
+            defaultLanguage: 'javascript'
+        };
+
+        // Dados de exemplo já preenchidos
+        const examplePages = [
+            {
+                id: 1,
+                type: 'explanation',
+                title: 'O que é JavaScript?',
+                content: `
+                    <h2>📚 O que é JavaScript? </h2>
+                    <p>JavaScript é uma <strong>linguagem de programação</strong> muito popular usada para criar sites interativos e aplicativos web.</p>
+                    
+                    <div style="background-color: #d1ecf1; border-left: 4px solid #17a2b8; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                        <h6 style="color: #0c5460; margin-bottom: 10px;"><i class="fas fa-lightbulb"></i> Você Sabia?</h6>
+                        <p style="margin:  0; color: #0c5460;">JavaScript é diferente de Java!  São linguagens completamente diferentes, apesar do nome parecido.</p>
+                    </div>
+
+                    <h4 style="color: #4e73df; margin-top: 30px;">Para que serve o JavaScript?</h4>
+                    <ul>
+                        <li>Criar animações em páginas web</li>
+                        <li>Validar formulários</li>
+                        <li>Criar jogos online</li>
+                        <li>Desenvolver aplicativos mobile</li>
+                        <li>E muito mais!</li>
+                    </ul>
+
+                    <p style="margin-top: 20px;">Vamos começar com o programa mais simples:  exibir uma mensagem na tela!  🚀</p>
+                `,
+                config: {}
+            },
+            {
+                id: 2,
+                type: 'explanation',
+                title: 'Como escrever Olá Mundo',
+                content:  `
+                    <h2>💻 Seu Primeiro Programa</h2>
+                    <p>O primeiro programa que todo programador aprende é o <strong>"Olá Mundo"</strong>.  Ele simplesmente exibe uma mensagem na tela.</p>
+                    
+                    <h4 style="color: #4e73df; margin-top: 25px;">O comando console.log()</h4>
+                    <p>Em JavaScript, usamos o comando <code style="background-color: #f8f9fc; padding: 2px 8px; border-radius: 3px; color: #e74a3b;">console.log()</code> para exibir mensagens no console do navegador.</p>
+                    
+                    <div style="background-color: #f8f9fc; border:  1px solid #e3e6f0; padding: 15px; border-radius: 5px; margin: 20px 0; font-family: monospace;">
+                        <strong>Exemplo:</strong><br><br>
+                        <code style="color: #6f42c1;">console</code>. <code style="color: #d63384;">log</code>(<code style="color: #20c997;">"Olá, Mundo!"</code>);
+                    </div>
+
+                    <div style="background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                        <h6 style="color: #856404; margin-bottom: 10px;"><i class="fas fa-exclamation-triangle"></i> Atenção!</h6>
+                        <ul style="margin: 0; color: #856404; padding-left: 20px;">
+                            <li>Use aspas duplas <code>"</code> ou simples <code>'</code> para textos</li>
+                            <li>Não esqueça o ponto e vírgula <code>;</code> no final</li>
+                            <li>JavaScript diferencia maiúsculas de minúsculas</li>
+                        </ul>
+                    </div>
+
+                    <p style="margin-top: 20px;">Agora é sua vez de praticar na próxima página! 🎯</p>
+                `,
+                config: {}
+            },
+            {
+                id: 3,
+                type: 'exercise',
+                title: 'Exercício:  Olá Mundo',
+                content: `
+                    <div style="background:  linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                        <h3 style="margin: 0; font-weight: bold;">🎯 Desafio:  Seu Primeiro Programa! </h3>
+                    </div>
+
+                    <div style="background-color: white; border: 2px solid #e3e6f0; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+                        <h5 style="color: #4e73df; margin-bottom: 15px;">📝 Descrição do Problema</h5>
+                        <p>Escreva um programa que exiba a mensagem <strong>"Olá, Mundo!"</strong> no console. </p>
+                        
+                        <hr style="margin: 20px 0;">
+                        
+                        <h6 style="color: #5a5c69; margin-bottom: 10px;">📋 Instruções: </h6>
+                        <ul style="color: #5a5c69;">
+                            <li>Use o comando <code style="background-color: #f8f9fc; padding: 2px 8px; border-radius: 3px; color: #e74a3b;">console.log()</code></li>
+                            <li>A mensagem deve ser exatamente:  <strong>"Olá, Mundo!"</strong></li>
+                            <li>Não esqueça das aspas e do ponto e vírgula</li>
+                            <li>Clique em <strong>"Executar Código"</strong> para testar</li>
+                        </ul>
+
+                        <hr style="margin: 20px 0;">
+
+                        <h6 style="color: #1cc88a; margin-bottom: 10px;">✅ Saída Esperada:</h6>
+                        <div style="background-color: #0d1117; color: #00ff00; padding: 15px; border-radius: 5px; font-family: monospace;">
+                            Olá, Mundo!
+                        </div>
+                    </div>
+
+                    <div style="background-color:  #d4edda; border-left: 4px solid #28a745; padding: 15px; border-radius: 5px;">
+                        <h6 style="color: #155724; margin-bottom: 10px;"><i class="fas fa-lightbulb"></i> Dica</h6>
+                        <p style="margin: 0; color: #155724;">Se você estiver com dificuldades, reveja a página anterior sobre o comando <code>console.log()</code>!</p>
+                    </div>
+                `,
+                config: {
+                    startingCode: '// Escreva seu código aqui\n',
+                    expectedOutput: 'Olá, Mundo! ',
+                    autoValidate: true,
+                    allowDownload: true
+                }
+            }
+        ];
+
+        // Inicialização
+        $(document).ready(function() {
+            // Carregar páginas de exemplo
+            pages = examplePages;
+            
+            // Inicializar Quill Editor com toolbar expandida
+            quill = new Quill('#quillEditor', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                        [{ 'font': [] }],
+                        [{ 'size': ['small', false, 'large', 'huge'] }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{ 'color': [] }, { 'background': [] }],
+                        [{ 'script': 'sub'}, { 'script': 'super' }],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'indent': '-1'}, { 'indent': '+1' }],
+                        [{ 'direction':  'rtl' }, { 'align': [] }],
+                        ['blockquote', 'code-block'],
+                        ['link', 'image', 'video'],
+                        ['clean']
+                    ]
+                },
+                placeholder: 'Comece a digitar o conteúdo da sua página aqui...'
+            });
+
+            // Atualizar conteúdo quando editar
+            quill.on('text-change', function() {
+                if (currentPageIndex !== null) {
+                    pages[currentPageIndex].content = quill.root.innerHTML;
+                    updatePreview(); // Atualiza preview automaticamente
+                }
+            });
+
+            // Selecionar primeira página
+            selectPage(0);
+            updatePagesPreview();
+        });
+
+        // Atualizar preview das páginas
+        function updatePagesPreview() {
+            const container = $('#pagesPreview');
+            
+            if (pages.length === 0) {
+                container. html(`
+                    <div class="text-center text-muted mt-4">
+                        <i class="fas fa-file-alt" style="font-size: 2rem; opacity: 0.3;"></i>
+                        <p class="mt-2" style="font-size: 0.85rem;">Nenhuma página criada</p>
+                    </div>
+                `);
+                return;
+            }
+
+            let html = '';
+            pages.forEach((page, index) => {
+                const badgeClass = page.type === 'exercise' ?  'badge-exercise' : 'badge-explanation';
+                const badgeText = page.type === 'exercise' ? 'Exercício' : 'Explicação';
+                const activeClass = index === currentPageIndex ? 'active' : '';
+
+                html += `
+                    <div class="page-preview-item ${activeClass}" onclick="selectPage(${index})">
+                        <button class="delete-page-btn" onclick="event.stopPropagation(); deletePage(${index})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div class="page-preview-badge ${badgeClass}">${badgeText}</div>
+                        <div class="page-preview-title">${page.title || 'Sem título'}</div>
+                        <div class="page-preview-number">Página ${index + 1}</div>
+                    </div>
+                `;
+            });
+
+            container.html(html);
+        }
+
+        // Selecionar página
+        function selectPage(index) {
+            currentPageIndex = index;
+            const page = pages[index];
+
+            // Atualizar header
+            $('#currentPageTitle').text(page.title || 'Sem título');
+            $('#currentPageType').text(page.type === 'exercise' ? 'Página de Exercício' : 'Página de Explicação');
+
+            // Carregar conteúdo no editor
+            quill.root.innerHTML = page.content || '';
+
+            // Atualizar configurações
+            $('#pageTitle').val(page.title);
+            $('#pageTypeSelect').val(page.type);
+
+            if (page.type === 'exercise') {
+                $('#startingCode').val(page.config.startingCode || '// Seu código aqui');
+                $('#expectedOutput').val(page.config.expectedOutput || '');
+                $('#autoValidate').prop('checked', page.config.autoValidate || false);
+                $('#allowDownload').prop('checked', page.config.allowDownload !== false);
+            }
+
+            // Mostrar/ocultar seções
+            $('#pageConfigSection').show();
+            $('#templatesSection').show();
+            toggleExerciseConfig();
+
+            // Atualizar preview
+            updatePagesPreview();
+            updatePreview();
+
+            // Voltar para tab visual
+            switchEditorTab('visual');
+        }
+
+        // Atualizar página atual
+        function updateCurrentPage() {
+            if (currentPageIndex === null) return;
+
+            const page = pages[currentPageIndex];
+            page.title = $('#pageTitle').val();
+            page.type = $('#pageTypeSelect').val();
+            page.content = quill.root.innerHTML;
+
+            if (page.type === 'exercise') {
+                page.config = {
+                    startingCode:  $('#startingCode').val(),
+                    expectedOutput: $('#expectedOutput').val(),
+                    autoValidate: $('#autoValidate').is(':checked'),
+                    allowDownload: $('#allowDownload').is(':checked')
+                };
+            } else {
+                page.config = {};
+            }
+
+            updatePagesPreview();
+            $('#currentPageTitle').text(page.title || 'Sem título');
+        }
+
+        // Alternar configurações de exercício
+        function toggleExerciseConfig() {
+            const pageType = $('#pageTypeSelect').val();
+            if (pageType === 'exercise') {
+                $('#exerciseConfig').addClass('show');
+            } else {
+                $('#exerciseConfig').removeClass('show');
+            }
+        }
+
+        // Trocar tab do editor
+        function switchEditorTab(tab) {
+            // Atualizar botões
+            $('. editor-tab').removeClass('active');
+            $(`.editor-tab[data-tab="${tab}"]`).addClass('active');
+
+            // Atualizar conteúdo
+            $('. tab-content-area').removeClass('active');
+            
+            if (tab === 'visual') {
+                $('#visualTab').addClass('active');
+            } else if (tab === 'html') {
+                $('#htmlEditor').val(quill.root.innerHTML);
+                $('#htmlTab').addClass('active');
+            } else if (tab === 'preview') {
+                updatePreview();
+                $('#previewTab').addClass('active');
+            }
+        }
+
+        // Atualizar preview
+        function updatePreview() {
+            $('#previewArea').html(quill.root.innerHTML);
+        }
+
+        // Sincronizar HTML para o editor visual
+        function syncHtmlToEditor() {
+            const htmlContent = $('#htmlEditor').val();
+            quill.root.innerHTML = htmlContent;
+            if (currentPageIndex !== null) {
+                pages[currentPageIndex].content = htmlContent;
+            }
+            switchEditorTab('visual');
+            alert('✅ HTML aplicado ao editor visual com sucesso!');
+        }
+
+        // Selecionar tipo de página
+        function selectPageType(type) {
+            selectedPageType = type;
+            
+            // Atualizar UI
+            $('. page-type-card').removeClass('selected');
+            $(`.page-type-card.${type}`).addClass('selected');
+            
+            $('#createPageBtn').prop('disabled', false);
+        }
+
+        // Criar nova página
+        function createNewPage() {
+            if (! selectedPageType) {
+                alert('Por favor, selecione um tipo de página primeiro!');
+                return;
+            }
+
+            const pageNumber = pages.length + 1;
+            const pageTitle = selectedPageType === 'exercise' 
+                ? `Exercício ${pageNumber}` 
+                : `Explicação ${pageNumber}`;
+
+            const newPage = {
+                id: Date.now(),
+                type: selectedPageType,
+                title: pageTitle,
+                content:  '',
+                config: selectedPageType === 'exercise' ?  {
+                    startingCode: '// Seu código aqui',
+                    expectedOutput: '',
+                    autoValidate: false,
+                    allowDownload: true
+                } : {}
+            };
+
+            pages.push(newPage);
+            updatePagesPreview();
+            selectPage(pages.length - 1);
+
+            // Resetar seleção
+            $('. page-type-card').removeClass('selected');
+            selectedPageType = null;
+            $('#createPageBtn').prop('disabled', true);
+        }
+
+        // Deletar página
+        function deletePage(index) {
+            if (confirm('Tem certeza que deseja excluir esta página?')) {
+                pages.splice(index, 1);
+                
+                if (currentPageIndex === index) {
+                    if (pages.length > 0) {
+                        selectPage(Math.max(0, index - 1));
+                    } else {
+                        currentPageIndex = null;
+                        $('#pageConfigSection').hide();
+                        $('#templatesSection').hide();
+                        $('#currentPageTitle').text('Selecione ou crie uma página');
+                        $('#currentPageType').text('');
+                        quill.root.innerHTML = '';
+                    }
+                } else if (currentPageIndex > index) {
+                    currentPageIndex--;
+                }
+                
+                updatePagesPreview();
+            }
+        }
+
+        // Deletar página atual
+        function deleteCurrentPage() {
+            if (currentPageIndex !== null) {
+                deletePage(currentPageIndex);
+            }
+        }
+
+        // Inserir templates
+        function insertTemplate(type) {
+            let template = '';
+            
+            switch(type) {
+                case 'problem':
+                    template = `
+                        <div style="background-color: white; border: 2px solid #4e73df; border-radius: 10px; padding: 20px; margin:  20px 0;">
+                            <h5 style="color: #4e73df; margin-bottom: 15px;">📝 Descrição do Problema</h5>
+                            <p>Descreva o problema aqui...</p>
+                            <hr>
+                            <h6 style="color: #5a5c69;">📋 Instruções:</h6>
+                            <ul>
+                                <li>Instrução 1</li>
+                                <li>Instrução 2</li>
+                                <li>Instrução 3</li>
+                            </ul>
+                        </div>
+                    `;
+                    break;
+                case 'explanation':
+                    template = `
+                        <div style="background-color: #eef2ff; border-left: 4px solid #4e73df; padding: 20px; border-radius: 5px; margin: 20px 0;">
+                            <h5 style="color: #4e73df;">📚 Explicação</h5>
+                            <p>Adicione sua explicação aqui...</p>
+                        </div>
+                    `;
+                    break;
+                case 'tip':
+                    template = `
+                        <div style="background-color: #d4edda; border-left: 4px solid #28a745; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                            <h6 style="color: #155724; margin-bottom: 10px;"><i class="fas fa-lightbulb"></i> Dica</h6>
+                            <p style="margin: 0; color:  #155724;">Adicione uma dica útil aqui...</p>
+                        </div>
+                    `;
+                    break;
+                case 'warning':
+                    template = `
+                        <div style="background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                            <h6 style="color: #856404; margin-bottom: 10px;"><i class="fas fa-exclamation-triangle"></i> Atenção! </h6>
+                            <p style="margin: 0; color: #856404;">Adicione um aviso importante aqui...</p>
+                        </div>
+                    `;
+                    break;
+                case 'code':
+                    template = `
+                        <div style="background-color: #f8f9fc; border: 1px solid #e3e6f0; padding: 15px; border-radius: 5px; margin: 20px 0; font-family: monospace;">
+                            <strong>Exemplo:</strong><br><br>
+                            <code>console.log("Olá, Mundo!");</code>
+                        </div>
+                    `;
+                    break;
+                case 'two-columns':
+                    template = `
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap:  20px; margin: 20px 0;">
+                            <div style="background-color: #f8f9fc; border: 2px solid #e3e6f0; padding: 20px; border-radius: 10px;">
+                                <h5>Coluna 1</h5>
+                                <p>Conteúdo da primeira coluna... </p>
+                            </div>
+                            <div style="background-color: #f8f9fc; border: 2px solid #e3e6f0; padding: 20px; border-radius: 10px;">
+                                <h5>Coluna 2</h5>
+                                <p>Conteúdo da segunda coluna...</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+            
+            const currentLength = quill.getLength();
+            quill.clipboard.dangerouslyPasteHTML(currentLength, '\n' + template);
+        }
+
+        // Abrir configurações da aula
+        function openLessonConfig() {
+            $('#lessonTitle').val(lessonConfig.title);
+            $('#lessonDescription').val(lessonConfig.description);
+            $('#lessonCategory').val(lessonConfig.category);
+            $('#lessonDifficulty').val(lessonConfig.difficulty);
+            $('#defaultLanguage').val(lessonConfig.defaultLanguage);
+            $('#lessonConfigModal').modal('show');
+        }
+
+        // Atualizar título da aula
+        function updateLessonTitle() {
+            lessonConfig.title = $('#lessonTitle').val();
+            lessonConfig.description = $('#lessonDescription').val();
+            lessonConfig.category = $('#lessonCategory').val();
+            lessonConfig.difficulty = $('#lessonDifficulty').val();
+            lessonConfig.defaultLanguage = $('#defaultLanguage').val();
+
+            $('#lessonTitleDisplay').text(lessonConfig.title || 'Sem título');
+        }
+
+        // Salvar aula
+        function saveLesson() {
+            if (!lessonConfig.title) {
+                alert('Por favor, configure o título da aula antes de publicar!');
+                openLessonConfig();
+                return;
+            }
+
+            if (pages.length === 0) {
+                alert('Por favor, adicione pelo menos uma página à aula!');
+                return;
+            }
+
+            const lessonData = {
+                ... lessonConfig,
+                pages: pages,
+                createdAt: new Date().toISOString()
+            };
+
+            console.log('📚 AULA COMPLETA:', lessonData);
+            console.log('📄 HTML da página atual:', pages[currentPageIndex].content);
+            
+            alert('✅ Aula publicada com sucesso!\n\n' +
+                  'Total de páginas: ' + pages. length + '\n' +
+                  'Verifique o console (F12) para ver todos os dados em JSON.');
+        }
+
+        // Salvar rascunho
+        function saveDraft() {
+            const draftData = {
+                ... lessonConfig,
+                pages:  pages,
+                isDraft: true,
+                lastModified: new Date().toISOString()
+            };
+
+            console.log('💾 RASCUNHO SALVO:', draftData);
+            localStorage.setItem('lessonDraft', JSON.stringify(draftData));
+            
+            alert('💾 Rascunho salvo localmente!\n\nOs dados foram salvos no localStorage do navegador.');
+        }
+
+        // Preview da aula
+        function previewLesson() {
+            if (pages.length === 0) {
+                alert('Adicione pelo menos uma página para visualizar! ');
+                return;
+            }
+            
+            const previewData = {
+                ...lessonConfig,
+                pages: pages
+            };
+
+            console.log('👁️ PREVIEW DA AULA:', previewData);
+            localStorage.setItem('lessonPreview', JSON.stringify(previewData));
+            
+            alert('👁️ Preview gerado!\n\n' +
+                  'Os dados foram salvos no localStorage.\n' +
+                  'Você pode criar uma página "apresentacao. html? preview=true" para exibir o conteúdo.');
+        }
+
+        // Exportar JSON
+        function exportLesson() {
+            const lessonData = {
+                ...lessonConfig,
+                pages: pages
+            };
+
+            const dataStr = JSON.stringify(lessonData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `aula-${lessonConfig.title. replace(/\s+/g, '-').toLowerCase()}.json`;
+            link.click();
+            
+            URL.revokeObjectURL(url);
+            
+            alert('📥 Arquivo JSON exportado com sucesso!');
+        }
+    </script>
+</body>
+
+</html>

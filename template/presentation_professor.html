@@ -1,32 +1,1206 @@
+<!-- Página de Monitoramento da Aula pelo Professor -->
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevRápido</title>
+    <title>Monitorar Aula - Professor</title>
+
+    <!-- CodeMirror CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+
+    <!-- CSS -->
+    <link href="../static/css/style.css" rel="stylesheet">
+
+    <!-- Template Bootstrap (CSS/Icons) -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/startbootstrap-sb-admin-2@4.1.4/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            overflow:  hidden;
+        }
+
+        .main-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Cabeçalho */
+        .header-section {
+            background:  linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding:  1rem 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .content-section {
+            flex: 1;
+            display: flex;
+            overflow:  hidden;
+        }
+
+        /* COLUNA ESQUERDA - Controles */
+        .left-column {
+            width: 280px;
+            background-color: #f8f9fc;
+            border-right: 2px solid #e3e6f0;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .control-section {
+            background:  white;
+            margin:  1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .control-section-header {
+            padding: 0.75rem 1rem;
+            background-color: #4e73df;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .control-section-body {
+            padding: 1rem;
+        }
+
+        /* Timer Display */
+        .timer-display {
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        . timer-display . time {
+            font-size: 2. 5rem;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+
+        .timer-display .label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+
+        /* Page Timer */
+        .page-timer {
+            background-color: #e7f3ff;
+            padding:  1rem;
+            border-radius:  0.5rem;
+            text-align: center;
+            border: 2px solid #4e73df;
+        }
+
+        .page-timer .time {
+            font-size: 1.8rem;
+            font-weight:  bold;
+            color: #4e73df;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Stats */
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background-color: #f8f9fc;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #5a5c69;
+        }
+
+        . stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4e73df;
+        }
+
+        /* Navigation Buttons */
+        .nav-button {
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .page-indicator {
+            text-align: center;
+            padding: 1rem;
+            background-color: #f8f9fc;
+            border-radius: 0.5rem;
+            margin:  0.75rem 0;
+            font-weight: bold;
+            color: #5a5c69;
+        }
+
+        /* COLUNA CENTRAL - Preview */
+        .center-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow:  hidden;
+            background-color: #e3e6f0;
+        }
+
+        .preview-header {
+            background-color: #4e73df;
+            color: white;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .preview-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 2rem;
+        }
+
+        /* COLUNA DIREITA - Alunos */
+        .right-column {
+            width: 320px;
+            background-color:  #f8f9fc;
+            border-left: 2px solid #e3e6f0;
+            display: flex;
+            flex-direction: column;
+            overflow:  hidden;
+        }
+
+        . students-header {
+            padding: 1rem;
+            background-color: #fff;
+            border-bottom: 2px solid #e3e6f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .students-header h6 {
+            margin: 0;
+            font-weight: bold;
+            color: #5a5c69;
+        }
+
+        .online-count {
+            background-color: #1cc88a;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius:  1rem;
+            font-size:  0.8rem;
+            font-weight:  bold;
+        }
+
+        . students-list {
+            flex: 1;
+            overflow-y: auto;
+            padding:  0.5rem;
+        }
+
+        /* Student Card */
+        .student-card {
+            background: white;
+            border:  2px solid #e3e6f0;
+            border-radius:  0.5rem;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .student-card:hover {
+            border-color: #4e73df;
+            box-shadow: 0 2px 8px rgba(78, 115, 223, 0.2);
+        }
+
+        .student-card.active {
+            border-color: #4e73df;
+            background-color: #eef2ff;
+        }
+
+        .student-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .student-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius:  50%;
+            background:  linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-right:  0.75rem;
+        }
+
+        . student-info {
+            flex:  1;
+        }
+
+        .student-name {
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #5a5c69;
+            margin-bottom: 0.25rem;
+        }
+
+        . student-status {
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius:  50%;
+            display: inline-block;
+        }
+
+        .status-online {
+            background-color: #1cc88a;
+            animation: pulse 2s infinite;
+        }
+
+        .status-offline {
+            background-color: #858796;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        . student-stats {
+            display: flex;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: #858796;
+        }
+
+        . student-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        . submission-badge {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            width: 24px;
+            height: 24px;
+            border-radius:  50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+
+        .badge-submitted {
+            background-color: #1cc88a;
+            color:  white;
+        }
+
+        . badge-pending {
+            background-color: #f6c23e;
+            color: white;
+        }
+
+        .badge-not-submitted {
+            background-color: #e74a3b;
+            color: white;
+        }
+
+        /* Code Viewer Modal */
+        .code-viewer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom:  0;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .code-viewer. show {
+            display: flex;
+        }
+
+        .code-viewer-content {
+            background: white;
+            border-radius: 0.5rem;
+            width: 90%;
+            max-width: 800px;
+            max-height:  80vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .code-viewer-header {
+            padding: 1rem 1.5rem;
+            background-color: #4e73df;
+            color: white;
+            border-radius: 0.5rem 0.5rem 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .code-viewer-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .CodeMirror {
+            font-size: 14px;
+            border: 1px solid #e3e6f0;
+            border-radius: 0.5rem;
+            height: auto ! important;
+        }
+
+        . submission-info {
+            background-color: #f8f9fc;
+            padding: 1rem;
+            border-radius:  0.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+
+        .submission-info-item {
+            flex: 1;
+        }
+
+        .submission-info-label {
+            font-size: 0.75rem;
+            color: #858796;
+            margin-bottom: 0.25rem;
+        }
+
+        . submission-info-value {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #5a5c69;
+        }
+
+        /* Scrollbar */
+        . students-list::-webkit-scrollbar,
+        .left-column::-webkit-scrollbar,
+        .preview-content::-webkit-scrollbar,
+        .code-viewer-body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .students-list::-webkit-scrollbar-track,
+        .left-column::-webkit-scrollbar-track,
+        .preview-content::-webkit-scrollbar-track,
+        .code-viewer-body::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .students-list::-webkit-scrollbar-thumb,
+        .left-column::-webkit-scrollbar-thumb,
+        .preview-content::-webkit-scrollbar-thumb,
+        .code-viewer-body::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        . no-code-message {
+            text-align:  center;
+            padding: 3rem;
+            color: #858796;
+        }
+
+        . no-code-message i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+    </style>
 </head>
+
 <body>
-    <div class="principal-container">
-        <header>
-            <ul class="cabecalho">
-                <li><img class="logo" src="../static/images/logo_ifce.png" alt="Logo IFCE"></li>
-            </ul>
-        </header>
-        <nav>
+    <div class="main-container">
+        <!-- Cabeçalho -->
+        <div class="header-section">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h4 class="mb-0">
+                        <i class="fas fa-chalkboard-teacher"></i> Monitoramento da Aula
+                    </h4>
+                    <small>Introdução ao JavaScript - Olá Mundo</small>
+                </div>
+                <div>
+                    <button class="btn btn-light btn-sm mr-2" onclick="toggleFullscreen()">
+                        <i class="fas fa-expand"></i> Tela Cheia
+                    </button>
+                    <button class="btn btn-warning btn-sm mr-2" onclick="pauseLesson()">
+                        <i class="fas fa-pause"></i> Pausar Aula
+                    </button>
+                    <button class="btn btn-danger btn-sm" onclick="endLesson()">
+                        <i class="fas fa-stop"></i> Encerrar Aula
+                    </button>
+                </div>
+            </div>
+        </div>
 
-        </nav>
-        <main>
-            <article>
+        <!-- Conteúdo Principal (3 colunas) -->
+        <div class="content-section">
+            <!-- COLUNA ESQUERDA - Controles da Aula -->
+            <div class="left-column">
+                <!-- Timer Geral -->
+                <div class="control-section">
+                    <div class="control-section-header">
+                        <i class="fas fa-clock"></i> Tempo de Aula
+                    </div>
+                    <div class="control-section-body">
+                        <div class="timer-display">
+                            <div class="time" id="lessonTimer">00:00:00</div>
+                            <div class="label">Tempo decorrido</div>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary btn-block" onclick="resetTimer()">
+                            <i class="fas fa-redo"></i> Resetar Timer
+                        </button>
+                    </div>
+                </div>
 
-            </article>
-            <section>
+                <!-- Timer da Página -->
+                <div class="control-section">
+                    <div class="control-section-header">
+                        <i class="fas fa-hourglass-half"></i> Tempo na Página Atual
+                    </div>
+                    <div class="control-section-body">
+                        <div class="page-timer">
+                            <div class="time" id="pageTimer">00:00</div>
+                        </div>
+                    </div>
+                </div>
 
-            </section>
-            <aside>
+                <!-- Estatísticas -->
+                <div class="control-section">
+                    <div class="control-section-header">
+                        <i class="fas fa-chart-bar"></i> Estatísticas
+                    </div>
+                    <div class="control-section-body">
+                        <div class="stat-item">
+                            <span class="stat-label">
+                                <i class="fas fa-users"></i> Alunos Online
+                            </span>
+                            <span class="stat-value" id="onlineCount">12/15</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">
+                                <i class="fas fa-code"></i> Códigos Enviados
+                            </span>
+                            <span class="stat-value" id="submissionCount">8/12</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">
+                                <i class="fas fa-check-circle"></i> Soluções Corretas
+                            </span>
+                            <span class="stat-value text-success" id="correctCount">5</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">
+                                <i class="fas fa-clock"></i> Tempo Médio
+                            </span>
+                            <span class="stat-value" id="avgTime">04:32</span>
+                        </div>
+                    </div>
+                </div>
 
-            </aside>
-        </main>
-        <footer></footer>
+                <!-- Navegação de Páginas -->
+                <div class="control-section">
+                    <div class="control-section-header">
+                        <i class="fas fa-list"></i> Navegação
+                    </div>
+                    <div class="control-section-body">
+                        <button class="btn btn-secondary btn-block nav-button" onclick="previousPage()" id="btnPrevious">
+                            <i class="fas fa-chevron-left"></i> Página Anterior
+                        </button>
+                        
+                        <div class="page-indicator" id="pageIndicator">
+                            Página 1 de 3
+                        </div>
+                        
+                        <button class="btn btn-primary btn-block nav-button" onclick="nextPage()" id="btnNext">
+                            Próxima Página <i class="fas fa-chevron-right"></i>
+                        </button>
+
+                        <hr>
+
+                        <button class="btn btn-info btn-sm btn-block" onclick="broadcastMessage()">
+                            <i class="fas fa-bullhorn"></i> Enviar Mensagem
+                        </button>
+                        <button class="btn btn-warning btn-sm btn-block" onclick="exportReport()">
+                            <i class="fas fa-file-export"></i> Exportar Relatório
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLUNA CENTRAL - Preview da Página -->
+            <div class="center-column">
+                <div class="preview-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-0" id="pageTitle">Página 1</h5>
+                            <small id="pageType">Explicação</small>
+                        </div>
+                        <div>
+                            <span class="badge badge-light">
+                                <i class="fas fa-eye"></i> Visualização do Professor
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preview-content">
+                    <div class="content-card" id="pageContent">
+                        <!-- Conteúdo da página atual -->
+                        <h2>📚 O que é JavaScript?</h2>
+                        <p>JavaScript é uma <strong>linguagem de programação</strong> muito popular usada para criar sites interativos e aplicativos web.</p>
+                        
+                        <div style="background-color: #d1ecf1; border-left: 4px solid #17a2b8; padding: 15px; margin:  20px 0; border-radius: 5px;">
+                            <h6 style="color: #0c5460; margin-bottom: 10px;"><i class="fas fa-lightbulb"></i> Você Sabia?</h6>
+                            <p style="margin:  0; color: #0c5460;">JavaScript é diferente de Java!  São linguagens completamente diferentes, apesar do nome parecido.</p>
+                        </div>
+
+                        <h4 style="color: #4e73df; margin-top: 30px;">Para que serve o JavaScript?</h4>
+                        <ul>
+                            <li>Criar animações em páginas web</li>
+                            <li>Validar formulários</li>
+                            <li>Criar jogos online</li>
+                            <li>Desenvolver aplicativos mobile</li>
+                            <li>E muito mais!</li>
+                        </ul>
+
+                        <p style="margin-top: 20px;">Vamos começar com o programa mais simples:  exibir uma mensagem na tela!  🚀</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLUNA DIREITA - Lista de Alunos -->
+            <div class="right-column">
+                <div class="students-header">
+                    <h6><i class="fas fa-users"></i> Alunos</h6>
+                    <span class="online-count" id="onlineBadge">12 online</span>
+                </div>
+
+                <div class="students-list" id="studentsList">
+                    <!-- Lista será preenchida dinamicamente -->
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- Modal de Visualização de Código -->
+    <div class="code-viewer" id="codeViewer">
+        <div class="code-viewer-content">
+            <div class="code-viewer-header">
+                <div>
+                    <h5 class="mb-0" id="viewerStudentName">João Silva</h5>
+                    <small id="viewerPageInfo">Página 3 - Exercício:  Olá Mundo</small>
+                </div>
+                <button class="btn btn-sm btn-light" onclick="closeCodeViewer()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="code-viewer-body">
+                <div class="submission-info">
+                    <div class="submission-info-item">
+                        <div class="submission-info-label">Status</div>
+                        <div class="submission-info-value text-success" id="viewerStatus">
+                            <i class="fas fa-check-circle"></i> Enviado
+                        </div>
+                    </div>
+                    <div class="submission-info-item">
+                        <div class="submission-info-label">Horário</div>
+                        <div class="submission-info-value" id="viewerTime">10:45: 32</div>
+                    </div>
+                    <div class="submission-info-item">
+                        <div class="submission-info-label">Tentativas</div>
+                        <div class="submission-info-value" id="viewerAttempts">3</div>
+                    </div>
+                    <div class="submission-info-item">
+                        <div class="submission-info-label">Resultado</div>
+                        <div class="submission-info-value text-success" id="viewerResult">
+                            <i class="fas fa-check"></i> Correto
+                        </div>
+                    </div>
+                </div>
+
+                <h6 class="mb-3"><i class="fas fa-code"></i> Código Enviado: </h6>
+                <div id="codeViewerEditor"></div>
+
+                <div id="noCodeMessage" class="no-code-message" style="display: none;">
+                    <i class="fas fa-code"></i>
+                    <p>Este aluno ainda não enviou nenhum código.</p>
+                </div>
+
+                <div class="mt-3 d-flex justify-content-end gap-2">
+                    <button class="btn btn-success btn-sm" onclick="approveCode()">
+                        <i class="fas fa-check"></i> Aprovar
+                    </button>
+                    <button class="btn btn-warning btn-sm" onclick="sendFeedback()">
+                        <i class="fas fa-comment"></i> Enviar Feedback
+                    </button>
+                    <button class="btn btn-secondary btn-sm" onclick="closeCodeViewer()">
+                        Fechar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CodeMirror JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+
+    <!-- Template Bootstrap (JS) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/startbootstrap-sb-admin-2@4.1. 4/js/sb-admin-2.min.js"></script>
+
+    <script>
+        // Dados de exemplo
+        const students = [
+            {
+                id: 1,
+                name: "João Silva",
+                avatar: "JS",
+                online: true,
+                currentPage: 1,
+                lastSubmission: "10:45:32",
+                submitted: true,
+                correct: true,
+                attempts: 3,
+                code: 'console.log("Olá, Mundo!");'
+            },
+            {
+                id: 2,
+                name: "Maria Santos",
+                avatar: "MS",
+                online: true,
+                currentPage: 1,
+                lastSubmission: "10:42:15",
+                submitted: true,
+                correct: true,
+                attempts: 1,
+                code: 'console.log("Olá, Mundo!");'
+            },
+            {
+                id: 3,
+                name: "Pedro Costa",
+                avatar: "PC",
+                online: true,
+                currentPage: 1,
+                lastSubmission: "10:50:01",
+                submitted: true,
+                correct: false,
+                attempts: 5,
+                code: 'console.log("Olá Mundo");  // Faltou a vírgula!'
+            },
+            {
+                id: 4,
+                name: "Ana Oliveira",
+                avatar: "AO",
+                online: true,
+                currentPage: 1,
+                lastSubmission: null,
+                submitted: false,
+                correct: false,
+                attempts: 0,
+                code:  '// Tentando resolver.. .'
+            },
+            {
+                id: 5,
+                name: "Carlos Mendes",
+                avatar: "CM",
+                online: true,
+                currentPage: 1,
+                lastSubmission: "10:48:20",
+                submitted: true,
+                correct: true,
+                attempts: 2,
+                code:  'console.log("Olá, Mundo!");'
+            },
+            {
+                id: 6,
+                name: "Juliana Lima",
+                avatar: "JL",
+                online: false,
+                currentPage: 0,
+                lastSubmission: null,
+                submitted: false,
+                correct: false,
+                attempts: 0,
+                code:  null
+            },
+            {
+                id: 7,
+                name: "Rafael Souza",
+                avatar: "RS",
+                online: true,
+                currentPage: 1,
+                lastSubmission: "10:44:55",
+                submitted: true,
+                correct: true,
+                attempts: 1,
+                code: 'console.log("Olá, Mundo!");'
+            },
+            {
+                id: 8,
+                name: "Beatriz Alves",
+                avatar: "BA",
+                online: true,
+                currentPage: 1,
+                lastSubmission: null,
+                submitted: false,
+                correct: false,
+                attempts: 0,
+                code:  '// Código em andamento'
+            },
+            {
+                id: 9,
+                name: "Lucas Ferreira",
+                avatar:  "LF",
+                online:  true,
+                currentPage: 1,
+                lastSubmission: "10:47:10",
+                submitted: true,
+                correct: false,
+                attempts: 4,
+                code: 'console.log(Olá, Mundo!);  // Faltam aspas!'
+            },
+            {
+                id: 10,
+                name: "Fernanda Rocha",
+                avatar: "FR",
+                online: true,
+                currentPage: 1,
+                lastSubmission: "10:46:30",
+                submitted: true,
+                correct: true,
+                attempts: 2,
+                code: 'console.log("Olá, Mundo!");'
+            },
+            {
+                id: 11,
+                name: "Bruno Dias",
+                avatar: "BD",
+                online: false,
+                currentPage: 0,
+                lastSubmission: null,
+                submitted: false,
+                correct: false,
+                attempts: 0,
+                code:  null
+            },
+            {
+                id: 12,
+                name: "Camila Martins",
+                avatar: "CM",
+                online: true,
+                currentPage: 1,
+                lastSubmission: "10:49:45",
+                submitted:  true,
+                correct: true,
+                attempts: 1,
+                code: 'console.log("Olá, Mundo!");'
+            },
+            {
+                id: 13,
+                name: "Diego Ribeiro",
+                avatar: "DR",
+                online: false,
+                currentPage: 0,
+                lastSubmission: null,
+                submitted: false,
+                correct: false,
+                attempts: 0,
+                code:  null
+            },
+            {
+                id: 14,
+                name: "Larissa Castro",
+                avatar: "LC",
+                online: true,
+                currentPage: 1,
+                lastSubmission: null,
+                submitted: false,
+                correct: false,
+                attempts: 0,
+                code:  '// Ainda resolvendo...'
+            },
+            {
+                id: 15,
+                name: "Thiago Nunes",
+                avatar: "TN",
+                online: true,
+                currentPage: 1,
+                lastSubmission: "10:43:20",
+                submitted: true,
+                correct: true,
+                attempts: 2,
+                code: 'console.log("Olá, Mundo!");'
+            }
+        ];
+
+        let lessonStartTime;
+        let pageStartTime;
+        let currentPageIndex = 0;
+        let codeViewerMirror;
+        let selectedStudent = null;
+
+        // Inicialização
+        $(document).ready(function() {
+            lessonStartTime = new Date();
+            pageStartTime = new Date();
+            
+            renderStudentsList();
+            updateStatistics();
+            startTimers();
+
+            // Simular atualizações em tempo real
+            setInterval(updateStatistics, 5000);
+            setInterval(() => simulateStudentActivity(), 10000);
+        });
+
+        // Renderizar lista de alunos
+        function renderStudentsList() {
+            const container = $('#studentsList');
+            let html = '';
+
+            students.forEach(student => {
+                const statusClass = student.online ? 'status-online' : 'status-offline';
+                const statusText = student.online ? 'Online' : 'Offline';
+                
+                let badgeClass = 'badge-not-submitted';
+                let badgeIcon = '✗';
+                
+                if (student.submitted) {
+                    badgeClass = student.correct ? 'badge-submitted' : 'badge-pending';
+                    badgeIcon = student.correct ? '✓' : '⚠';
+                }
+
+                html += `
+                    <div class="student-card" onclick="viewStudentCode(${student.id})">
+                        <div class="submission-badge ${badgeClass}">
+                            ${badgeIcon}
+                        </div>
+                        <div class="student-header">
+                            <div class="student-avatar">${student.avatar}</div>
+                            <div class="student-info">
+                                <div class="student-name">${student.name}</div>
+                                <div class="student-status">
+                                    <span class="status-indicator ${statusClass}"></span>
+                                    ${statusText}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="student-stats">
+                            <div class="student-stat">
+                                <i class="fas fa-file-code"></i>
+                                ${student.submitted ? 'Enviado' :  'Pendente'}
+                            </div>
+                            <div class="student-stat">
+                                <i class="fas fa-redo"></i>
+                                ${student.attempts} tentativa(s)
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.html(html);
+        }
+
+        // Visualizar código do aluno
+        function viewStudentCode(studentId) {
+            selectedStudent = students.find(s => s.id === studentId);
+            
+            if (!selectedStudent) return;
+
+            $('#viewerStudentName').text(selectedStudent.name);
+            $('#viewerPageInfo').text(`Página ${currentPageIndex + 1} - Exercício:  Olá Mundo`);
+            
+            if (selectedStudent.submitted) {
+                $('#viewerStatus').html('<i class="fas fa-check-circle"></i> Enviado').removeClass('text-danger').addClass('text-success');
+                $('#viewerTime').text(selectedStudent.lastSubmission || '-');
+                $('#viewerAttempts').text(selectedStudent.attempts);
+                
+                if (selectedStudent.correct) {
+                    $('#viewerResult').html('<i class="fas fa-check"></i> Correto').removeClass('text-danger').addClass('text-success');
+                } else {
+                    $('#viewerResult').html('<i class="fas fa-times"></i> Incorreto').removeClass('text-success').addClass('text-danger');
+                }
+            } else {
+                $('#viewerStatus').html('<i class="fas fa-clock"></i> Não Enviado').removeClass('text-success').addClass('text-danger');
+                $('#viewerTime').text('-');
+                $('#viewerAttempts').text(selectedStudent.attempts);
+                $('#viewerResult').html('<i class="fas fa-minus"></i> -').removeClass('text-success text-danger');
+            }
+
+            // Mostrar/ocultar código
+            if (selectedStudent.code) {
+                $('#codeViewerEditor').show();
+                $('#noCodeMessage').hide();
+                
+                // Criar CodeMirror se não existir
+                if (!codeViewerMirror) {
+                    const textarea = document.createElement('textarea');
+                    $('#codeViewerEditor').html('').append(textarea);
+                    
+                    codeViewerMirror = CodeMirror. fromTextArea(textarea, {
+                        mode: 'javascript',
+                        theme: 'dracula',
+                        lineNumbers:  true,
+                        readOnly: true,
+                        viewportMargin: Infinity
+                    });
+                }
+                
+                codeViewerMirror.setValue(selectedStudent.code);
+                setTimeout(() => codeViewerMirror.refresh(), 100);
+            } else {
+                $('#codeViewerEditor').hide();
+                $('#noCodeMessage').show();
+            }
+
+            $('#codeViewer').addClass('show');
+        }
+
+        // Fechar visualizador de código
+        function closeCodeViewer() {
+            $('#codeViewer').removeClass('show');
+            selectedStudent = null;
+        }
+
+        // Atualizar estatísticas
+        function updateStatistics() {
+            const onlineStudents = students.filter(s => s.online).length;
+            const totalStudents = students.length;
+            const submittedCount = students.filter(s => s.submitted).length;
+            const onlineSubmittedCount = students.filter(s => s.online && s.submitted).length;
+            const correctCount = students.filter(s => s.correct).length;
+
+            $('#onlineCount').text(`${onlineStudents}/${totalStudents}`);
+            $('#onlineBadge').text(`${onlineStudents} online`);
+            $('#submissionCount').text(`${onlineSubmittedCount}/${onlineStudents}`);
+            $('#correctCount').text(correctCount);
+
+            // Calcular tempo médio (simulado)
+            const avgMinutes = Math.floor(Math.random() * 5) + 3;
+            const avgSeconds = Math.floor(Math.random() * 60);
+            $('#avgTime').text(`${String(avgMinutes).padStart(2, '0')}:${String(avgSeconds).padStart(2, '0')}`);
+        }
+
+        // Iniciar timers
+        function startTimers() {
+            setInterval(() => {
+                const elapsed = Math.floor((new Date() - lessonStartTime) / 1000);
+                const hours = Math.floor(elapsed / 3600);
+                const minutes = Math.floor((elapsed % 3600) / 60);
+                const seconds = elapsed % 60;
+                
+                $('#lessonTimer').text(
+                    `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+                );
+            }, 1000);
+
+            setInterval(() => {
+                const elapsed = Math.floor((new Date() - pageStartTime) / 1000);
+                const minutes = Math.floor(elapsed / 60);
+                const seconds = elapsed % 60;
+                
+                $('#pageTimer').text(
+                    `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+                );
+            }, 1000);
+        }
+
+        // Resetar timer
+        function resetTimer() {
+            if (confirm('Deseja resetar o timer da aula?')) {
+                lessonStartTime = new Date();
+            }
+        }
+
+        // Navegação de páginas
+        function previousPage() {
+            if (currentPageIndex > 0) {
+                currentPageIndex--;
+                pageStartTime = new Date();
+                updatePageDisplay();
+            }
+        }
+
+        function nextPage() {
+            if (currentPageIndex < 2) {
+                currentPageIndex++;
+                pageStartTime = new Date();
+                updatePageDisplay();
+            }
+        }
+
+        function updatePageDisplay() {
+            $('#pageIndicator').text(`Página ${currentPageIndex + 1} de 3`);
+            
+            // Atualizar conteúdo da página (exemplo)
+            const pages = [
+                { title: 'Página 1', type: 'Explicação', content: '<h2>📚 O que é JavaScript?</h2><p>Conteúdo da página 1... </p>' },
+                { title:  'Página 2', type: 'Explicação', content: '<h2>💻 Seu Primeiro Programa</h2><p>Conteúdo da página 2... </p>' },
+                { title:  'Página 3', type: 'Exercício', content: '<h2>🎯 Desafio:  Olá Mundo</h2><p>Conteúdo da página 3...</p>' }
+            ];
+            
+            $('#pageTitle').text(pages[currentPageIndex].title);
+            $('#pageType').text(pages[currentPageIndex].type);
+            $('#pageContent').html(pages[currentPageIndex].content);
+        }
+
+        // Simular atividade dos alunos
+        function simulateStudentActivity() {
+            const randomStudent = students[Math.floor(Math.random() * students.length)];
+            
+            if (randomStudent.online && !randomStudent.submitted) {
+                if (Math.random() > 0.5) {
+                    randomStudent.submitted = true;
+                    randomStudent.correct = Math.random() > 0.3;
+                    randomStudent.attempts++;
+                    randomStudent.lastSubmission = new Date().toLocaleTimeString('pt-BR');
+                    
+                    renderStudentsList();
+                    updateStatistics();
+                }
+            }
+        }
+
+        // Tela cheia
+        function toggleFullscreen() {
+            if (! document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Pausar aula
+        function pauseLesson() {
+            alert('🚫 Função "Pausar Aula" em desenvolvimento.\n\nIsso bloquearia temporariamente os alunos.');
+        }
+
+        // Encerrar aula
+        function endLesson() {
+            if (confirm('Tem certeza que deseja encerrar esta aula?\n\nOs alunos serão desconectados. ')) {
+                alert('✅ Aula encerrada!\n\nEm produção, isso salvaria todos os dados e desconectaria os alunos.');
+                // window.location.href = '/dashboard';
+            }
+        }
+
+        // Enviar mensagem
+        function broadcastMessage() {
+            const message = prompt('Digite a mensagem para todos os alunos:');
+            if (message) {
+                alert(`📢 Mensagem enviada para todos os alunos:\n\n"${message}"`);
+            }
+        }
+
+        // Exportar relatório
+        function exportReport() {
+            const report = {
+                lesson: 'Introdução ao JavaScript - Olá Mundo',
+                date:  new Date().toISOString(),
+                duration: $('#lessonTimer').text(),
+                students: students.map(s => ({
+                    name:  s.name,
+                    online: s.online,
+                    submitted: s.submitted,
+                    correct: s.correct,
+                    attempts: s.attempts
+                }))
+            };
+
+            const dataStr = JSON.stringify(report, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `relatorio-aula-${new Date().getTime()}.json`;
+            link.click();
+            
+            URL.revokeObjectURL(url);
+            alert('📥 Relatório exportado com sucesso!');
+        }
+
+        // Aprovar código
+        function approveCode() {
+            if (selectedStudent) {
+                alert(`✅ Código de ${selectedStudent.name} aprovado!`);
+                closeCodeViewer();
+            }
+        }
+
+        // Enviar feedback
+        function sendFeedback() {
+            if (selectedStudent) {
+                const feedback = prompt(`Enviar feedback para ${selectedStudent.name}:`);
+                if (feedback) {
+                    alert(`📨 Feedback enviado para ${selectedStudent.name}:\n\n"${feedback}"`);
+                    closeCodeViewer();
+                }
+            }
+        }
+
+        // Fechar modal ao clicar fora
+        $('#codeViewer').on('click', function(e) {
+            if (e.target.id === 'codeViewer') {
+                closeCodeViewer();
+            }
+        });
+    </script>
 </body>
+
 </html>
