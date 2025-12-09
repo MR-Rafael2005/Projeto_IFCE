@@ -85,42 +85,237 @@ Nada disso é obrigatório, mas enriquece se você tiver tempo.-->
 
 <body>
 
-    <div id="wrapper">      
-        
-        
-       
-    
-
+    <div id="wrapper">     
         <!-- Conteudo da pagina -->
         <div class="container-fluid">
+        <nav
+            class="navbar navbar-expand-lg navbar-light topbar mb-4 static-top shadow"
+          >
+            <a class="navbar-brand text-primary" href="#">Dev Rapido</a>
 
-            <!--cabeçalho do site-->
-            <div class="card-header py-3 ml-1">
-                
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#menuSandwitch"
+              aria-controls="menuSandwitch"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
 
+            <div class="collapse navbar-collapse" id="menuSandwitch">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link text-dark" href="./dashboard.html">
+                    <i class="fas fa-fw fa-tachometer-alt mr-1"></i>
+                    Dashboard
+                  </a>
+                </li>
+              </ul>
 
-                 <!-- row - Usamos d-flex para garantir comportamento flexível consistente -->
-                 <div class="row d-flex align-items-center">
+              <div class="d-lg-none mt-3">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item dropdown">
+                    <a
+                      class="dropdown-toggle text-dark"
+                      role="button"
+                      data-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i class="fa fa-user mr-1" style="padding-left: 16px"></i>
+                      Perfil
+                    </a>
 
-                    <!-- Coluna do Botão - Ocupa um pequeno espaço fixo na esquerda -->
-                    <!-- w-auto garante que ocupe apenas o espaço necessário -->
-                    <div class="col-auto w-auto mr-3">
-                        <a href="dashboard.html" class="btn btn-primary">Botão Esquerdo</a>
+                    <div class="dropdown-menu shadow">
+                      <a class="dropdown-item" href="#">
+                        <i
+                          class="fa-solid fa-circle-user fa-md fa-fw mr-2 text-gray-400"
+                        ></i>
+                        Minha conta
+                      </a>
+
+                      <a class="dropdown-item" href="#">
+                        <i
+                          class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"
+                        ></i>
+                        Relatório
+                      </a>
+
+                      <a
+                        class="dropdown-item"
+                        href="#"
+                        data-toggle="modal"
+                        data-target="#logoutModal"
+                      >
+                        <i
+                          class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
+                        ></i>
+                        Sair
+                      </a>
                     </div>
+                  </li>
+                </ul>
+              </div>
 
-                
-                    <!-- Coluna do Título - Ocupa o espaço restante e centraliza seu próprio texto -->
-                    <!-- flex-grow-1 faz essa div expandir para ocupar o espaço restante -->
-                    <!-- text-center centraliza o texto dentro dessa div -->
-                    <div>
-                        <h6 class="col-auto h4 mb-2 text-gray-800 font-weight-bold text-center"> Detalhes da Aula</h6>
+              <!-- Esse nav é do profile-->
+              <div class="d-none d-lg-block">
+                <ul class="navbar-nav">
+                  <!-- Nav Item - Alerts -->
+                  <li class="nav-item dropdown no-arrow mx-1">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      href="#"
+                      id="alertsDropdown"
+                      role="button"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <i class="fas fa-bell fa-fw"></i>
+                      <!-- Counter - Alerts -->
+                      <span class="badge badge-danger badge-counter">1</span>
+                    </a>
+                    <!-- Dropdown - Alerts -->
+                    <div
+                      class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                      aria-labelledby="alertsDropdown"
+                    >
+                      <h6 class="dropdown-header">Notificações</h6>
+                      <a
+                        class="dropdown-item d-flex align-items-center"
+                        href="#"
+                      >
+                        <div class="mr-3">
+                          <div class="icon-circle bg-primary">
+                            <i class="fas fa-file-alt text-white"></i>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="small text-gray-500">
+                            Dezembro 12, 2025
+                          </div>
+                          <span class="font-weight-bold"
+                            >Aula para o dia 12 está perto de acontecer, se
+                            organize!</span
+                          >
+                        </div>
+                      </a>
+                      <a
+                        class="dropdown-item text-center small text-gray-500"
+                        href="#"
+                        >Mostrar todas as notificações</a
+                      >
                     </div>
+                  </li>
 
-                 </div><!--fim do row-->   
+                  <!-- Nav Item - Messages -->
+                  <li class="nav-item dropdown no-arrow mx-1">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      href="#"
+                      id="messagesDropdown"
+                      role="button"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <i class="fas fa-envelope fa-fw"></i>
+                      <!-- Counter - Messages -->
+                      <span class="badge badge-danger badge-counter">1</span>
+                    </a>
+                    <!-- Dropdown - Messages -->
+                    <div
+                      class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                      aria-labelledby="messagesDropdown"
+                    >
+                      <h6 class="dropdown-header">Mensagens</h6>
+                      <a
+                        class="dropdown-item d-flex align-items-center"
+                        href="#"
+                      >
+                        <div class="dropdown-list-image mr-3">
+                          <img
+                            class="rounded-circle"
+                            src="../static/assets/undraw_profile.svg"
+                            alt="..."
+                          />
+                          <div class="status-indicator bg-success"></div>
+                        </div>
+                        <div class="font-weight-bold">
+                          <div class="text-truncate">
+                            Bom dia professor! Quero que o senhor reveja minhas
+                            paginas da aula anterior, por favor!
+                          </div>
+                          <div class="small text-gray-500">
+                            Jonas Sousa · 3 hr
+                          </div>
+                        </div>
+                      </a>
+                      <a
+                        class="dropdown-item text-center small text-gray-500"
+                        href="#"
+                      >
+                        Ler mais mensagens
+                      </a>
+                    </div>
+                  </li>
 
-                
-                
+                  <!-- Nav Item - User Information -->
+                  <li class="nav-item dropdown no-arrow">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      href="#"
+                      id="userDropdown"
+                      role="button"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <span class="mr-2 d-none d-lg-inline text-gray-600 small"
+                        >Usuario Professor</span
+                      >
+                      <img
+                        class="img-profile rounded-circle"
+                        src="../static/assets/undraw_profile.svg"
+                      />
+                    </a>
+                    <!-- Dropdown - User Information -->
+                    <div
+                      class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                      aria-labelledby="userDropdown"
+                    >
+                      <a class="dropdown-item" href="#">
+                        <i
+                          class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"
+                        ></i>
+                        Perfil
+                      </a>
+                      <a class="dropdown-item" href="#">
+                        <i
+                          class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"
+                        ></i>
+                        Relatório
+                      </a>
+                      <div class="dropdown-divider"></div>
+                      <a
+                        class="dropdown-item"
+                        href="#"
+                        data-toggle="modal"
+                        data-target="#logoutModal"
+                      >
+                        <i
+                          class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
+                        ></i>
+                        Sair
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </div>
+          </nav>
             
             <!--informaçoes cards-->
             <div class="card_informacoes_basicas d-flex  justify-content-center">
@@ -239,7 +434,7 @@ Nada disso é obrigatório, mas enriquece se você tiver tempo.-->
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Número de questões
+                                                Número de paginas
                                             </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">15</div>
                                         </div>
@@ -252,31 +447,7 @@ Nada disso é obrigatório, mas enriquece se você tiver tempo.-->
                         </div>
 
                         <!--card com barra de progresso, taxa media de acertos -->
-                        <div class="col-xl-6 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Taxa média de acertos
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">67%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-450"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                       
 
                         <!-- card submissoes feitas -->
                         <div class="col-xl-6 col-md-6 mb-4">
@@ -333,7 +504,7 @@ Nada disso é obrigatório, mas enriquece se você tiver tempo.-->
                 <!-- titulo destacado azul -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Lista de Questões (exercícios)</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Lista de paginas (exercícios)</h6>
                     </div>
 
 
@@ -343,48 +514,35 @@ Nada disso é obrigatório, mas enriquece se você tiver tempo.-->
                             <table class="table table-bordered id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>Nome da questão</th>
-                                        <th>Nível Entrou às</th>
+                                        <th>Nome da pagina</th>
+                                        <th>Nível</th>
                                         <th>Linguagem permitida</th>
-                                        <th>Taxa de acertos</th>
                                         <th>Submissões</th>
+                                        <th>Opções</th>
                                     </tr>
                                 </thead>
 
-                                <tfoot>
-                                    <tr>
-                                        <th>Nome da questão</th>
-                                        <th>Nível (fácil/médio/difícil)</th>
-                                        <th>Linguagem permitida</th>
-                                        <th>Taxa de acertos</th>
-                                        <th>Submissões</th>
-                                    </tr>
-                                </tfoot>
-
                                 <tbody>
                                     <tr>
-                                        <td>questão 1 POO</td>
+                                        <td>pagina 1 POO</td>
                                         <td>Médio</td>
                                         <td>C</td>
-                                        <td>78%</td>
                                         <td>17</td>
                                           <!--botoes de ver e editar as questoes-->
                                           <td><button class="botoes_ver_editar btn btn-primary mb-1 mx-auto">Ver</button> <button class="botoes_ver_editar btn btn-primary">Editar</button> </td>
                                     </tr>
                                     <tr>
-                                        <td>questão 2 condicionais</td>
+                                        <td>pagina 2 condicionais</td>
                                         <td>Facil</td>
                                         <td>python</td>
-                                        <td>86%</td>
                                         <td>18</td>
                                           <!--botoes de ver e editar as questoes-->
                                           <td><button class="botoes_ver_editar btn btn-primary mb-1 mx-auto">Ver</button> <button class="botoes_ver_editar btn btn-primary">Editar</button> </td>
                                     </tr>
                                     <tr>
-                                        <td>questão 3 if</td>
+                                        <td>pagina 3 if</td>
                                         <td>Facil</td>
                                         <td>python</td>
-                                        <td>76%</td>
                                         <td>13</td>
 
                                         <!--botoes de ver e editar as questoes-->
@@ -396,44 +554,21 @@ Nada disso é obrigatório, mas enriquece se você tiver tempo.-->
                 </div>
 
             </div>
-            <!-- /.tabela_participantes -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             <!-- tabela de participantes -->
-            <div class="tabela_participantes">
+            <div class="tabela_questoes mx-auto">
             
                 <!-- titulo destacado azul -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Tabela Participantes</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Lista de Alunos</h6>
                     </div>
 
 
                     <!-- tabela de participantes e questoes -->
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered id='dataTable' width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>Alunos</th>
@@ -443,16 +578,6 @@ Nada disso é obrigatório, mas enriquece se você tiver tempo.-->
                                         <th>Submissões</th>
                                     </tr>
                                 </thead>
-
-                                <tfoot>
-                                    <tr>
-                                        <th>Alunos</th>
-                                        <th>Entrou às</th>
-                                        <th>Acertos</th>
-                                        <th>Erros</th>
-                                        <th>Submissões</th>
-                                    </tr>
-                                </tfoot>
 
                                 <tbody>
                                     <tr>

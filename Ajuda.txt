@@ -32,3 +32,23 @@ git pull [Atualiza o repositorio local com o repositorio do github]
 Páginas feitas (Parte 1): 02/12
 Páginas feitas (Parte 2): 09/12
 Funcionamento básico: 15/12
+
+A resolver:
+Voltar do login a tela principal
+
+Dashboard:
+- Linkar a criar aula 
+- Adicionar lista de ultimas aulas criadas
+- Adicionar lista de coleções
+
+Listagem:
+- Linkar criar aulas
+- Mudar o Retorno ao Dashboard
+- Muda Marcos Souza
+- Retirar aba de status (ignorar)
+
+Detalhes:
+- Adicionar navbar [x]
+- Remover taxa de acertos [x]
+- Trocar questoes por paginas [x]
+- Tirar erros e acertos da tabela de participantes [x]
