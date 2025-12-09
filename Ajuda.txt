@@ -34,18 +34,18 @@ Páginas feitas (Parte 2): 09/12
 Funcionamento básico: 15/12
 
 A resolver:
-Voltar do login a tela principal
+Voltar do login a tela principal []
 
 Dashboard:
-- Linkar a criar aula 
-- Adicionar lista de ultimas aulas criadas
-- Adicionar lista de coleções
+- Linkar a criar aula []
+- Adicionar lista de ultimas aulas criadas []
+- Adicionar lista de coleções []
 
 Listagem:
-- Linkar criar aulas
-- Mudar o Retorno ao Dashboard
-- Muda Marcos Souza
-- Retirar aba de status (ignorar)
+- Linkar criar aulas [x]
+- Mudar o Retorno ao Dashboard [x]
+- Muda Marcos Souza [x]
+- Retirar aba de status (ignorar) [x]
 
 Detalhes:
 - Adicionar navbar [x]
