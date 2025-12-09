@@ -97,15 +97,15 @@
 
             <h2>Seja Bem-vindo!</h2>
 
-            <form id="loginForm">
+            <form id="loginForm" onsubmit="window.location.href='./dashboard.html'; return false;">
                 <input type="email" placeholder="Insira o endereço de e-mail..." id="email" required>
-                <input type="senha" placeholder="senha" id="senha" required>
+                <input type="password" placeholder="senha" id="senha" required>
 
                 <button type="submit" id="login-btn" class="btn login-btn">Login</button>
 
                 <div class="links">
-                    <a href="reset_password.html">Esqueceu sua senha?</a>
-                    <a href="cadastro.html">Criar uma Conta!</a>
+                    <a href="./reset_password.html">Esqueceu sua senha?</a>
+                    <a href="./cadastro.html">Criar uma Conta!</a>
                 </div>
             </form>
 

@@ -1,34 +1,91 @@
-<!-- Pagina Base do projeto, outras devem ser colocadas nessa pasta -->
-<!-- Essa pagina contem uma forma bem basica e rustica de como será o layout base de uma pagina do projeto -->
-<!-- Tem os links e hrefs para os arquivos e para o bootstrap -->
-<!-- Como testar? Recoemdo a instalação da extensão Live Server no VSCode -->
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Template Base</title>
+    <title>Login - Aula</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        body {
 
-    <!-- CSS -->
-    <link href="../static/css/style.css" rel="stylesheet">
+            background: linear-gradient(135deg, #4a68ff, #7da2ff);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    <!-- Template Bootstrap (CSS/Icons) -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/startbootstrap-sb-admin-2@4.1.4/css/sb-admin-2.min.css" rel="stylesheet">
+        .prof-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #333;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-size: 14px;
+        }
 
+        h2 {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        
+         label {
+            font-weight: bold;
+            font-size: 18px;
+         }
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0px 5px 20px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .login-container h2 {
+            margin-bottom: 16px;
+            color: #333;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 6px;
+            margin-top: 3px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            font-size: 14px;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 12px;
+            background: #4764ff;
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        
+    </style>
 </head>
-
 <body>
-    PAGINA TESTE DO SISTEMA
-    
-    <!-- Template Bootstrap (JS) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/startbootstrap-sb-admin-2@4.1.4/js/sb-admin-2.min.js"></script>
-</body>
+    <a href="login.html" class="prof-btn">Login de Professor</a>
 
+    <div class="login-container">
+        <h2>Entrar na Aula</h2>
+            <label for="nome">Nome de Usuário:</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <label for="codigo">Codigo da Aula:</label>
+            <input type="codigo" id="codigo" name="codigo" required>
+        <button onclick="window.location.href='./presentation_student.html'">Entrar</button>
+    </div>
+
+</body>
 </html>
