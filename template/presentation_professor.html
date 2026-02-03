@@ -1,4 +1,4 @@
-<!-- Página de Monitoramento da Aula pelo Professor -->
+<!-- Página de Monitoramento da Aula pelo Professor - Layout Corrigido -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -11,17 +11,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
 
-    <!-- CSS -->
-    <link href="../static/css/style.css" rel="stylesheet">
-
-    <!-- Template Bootstrap (CSS/Icons) -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/startbootstrap-sb-admin-2@4.1.4/css/sb-admin-2.min.css" rel="stylesheet">
 
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            overflow:  hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
         }
 
         .main-container {
@@ -30,44 +36,157 @@
             flex-direction: column;
         }
 
-        /* Cabeçalho */
+        /* ========== HEADER ========== */
         .header-section {
-            background:  linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding:  1rem 1.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            color: #2d3748;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-bottom: 3px solid #667eea;
+            z-index: 100;
+            flex-shrink: 0;
         }
 
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-title h4 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.35rem;
+            color: #1a202c;
+        }
+
+        .header-title .icon-wrapper {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .header-subtitle {
+            font-size: 0.9rem;
+            color: #718096;
+            font-weight: 500;
+            margin-left: 57px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .header-actions .btn {
+            padding: 0.55rem 1.1rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-actions .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-light-custom {
+            background: #f7fafc;
+            color: #4a5568;
+        }
+
+        .btn-light-custom:hover {
+            background: #edf2f7;
+        }
+
+        .btn-warning-custom {
+            background: #fbbf24;
+            color: white;
+        }
+
+        .btn-warning-custom:hover {
+            background: #f59e0b;
+        }
+
+        .btn-danger-custom {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-danger-custom:hover {
+            background: #dc2626;
+        }
+
+        /* ========== CONTENT SECTION ========== */
         .content-section {
             flex: 1;
             display: flex;
-            overflow:  hidden;
+            overflow: hidden;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: transparent;
+            min-height: 0;
         }
 
-        /* COLUNA ESQUERDA - Controles */
+        /* ========== LEFT COLUMN ========== */
         .left-column {
             width: 280px;
-            background-color: #f8f9fc;
-            border-right: 2px solid #e3e6f0;
+            min-width: 280px;
+            max-width: 280px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
             overflow-y: auto;
+            overflow-x: hidden;
         }
 
         .control-section {
-            background:  white;
-            margin:  1rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 0.75rem;
+            border-radius: 12px;
             overflow: hidden;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .control-section:first-child {
+            margin-top: 1rem;
+        }
+
+        .control-section:last-child {
+            margin-bottom: 1rem;
+        }
+
+        .control-section:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
         }
 
         .control-section-header {
-            padding: 0.75rem 1rem;
-            background-color: #4e73df;
+            padding: 0.85rem 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            font-weight: bold;
-            font-size: 0.9rem;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .control-section-body {
@@ -77,39 +196,86 @@
         /* Timer Display */
         .timer-display {
             text-align: center;
-            padding: 1.5rem;
+            padding: 1.5rem 1rem;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        . timer-display . time {
-            font-size: 2. 5rem;
-            font-weight: bold;
+        .timer-display::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: pulse-light 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-light {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .timer-display .time {
+            font-size: 2.2rem;
+            font-weight: 800;
             font-family: 'Courier New', monospace;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
         .timer-display .label {
-            font-size: 0.85rem;
-            opacity: 0.9;
+            font-size: 0.75rem;
+            opacity: 0.95;
             margin-top: 0.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
         }
 
         /* Page Timer */
         .page-timer {
-            background-color: #e7f3ff;
-            padding:  1rem;
-            border-radius:  0.5rem;
+            background: linear-gradient(135deg, #e0e7ff 0%, #e9d5ff 100%);
+            padding: 1.25rem;
+            border-radius: 12px;
             text-align: center;
-            border: 2px solid #4e73df;
+            border: 2px solid #a78bfa;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-timer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
 
         .page-timer .time {
-            font-size: 1.8rem;
-            font-weight:  bold;
-            color: #4e73df;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #6d28d9;
             font-family: 'Courier New', monospace;
+            position: relative;
+            z-index: 1;
         }
 
         /* Stats */
@@ -118,312 +284,573 @@
             justify-content: space-between;
             align-items: center;
             padding: 0.75rem;
-            background-color: #f8f9fc;
-            border-radius: 0.5rem;
-            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 10px;
+            margin-bottom: 0.6rem;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .stat-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         .stat-label {
-            font-size: 0.85rem;
-            color: #5a5c69;
+            font-size: 0.8rem;
+            color: #475569;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
         }
 
-        . stat-value {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #4e73df;
-        }
-
-        /* Navigation Buttons */
-        .nav-button {
-            padding: 1rem;
+        .stat-label i {
+            color: #667eea;
             font-size: 1rem;
-            font-weight: bold;
-            border-radius: 0.5rem;
-            transition: all 0.2s;
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #667eea;
+        }
+
+        /* Navigation */
+        .nav-button {
+            padding: 0.85rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
         }
 
         .page-indicator {
             text-align: center;
-            padding: 1rem;
-            background-color: #f8f9fc;
-            border-radius: 0.5rem;
-            margin:  0.75rem 0;
-            font-weight: bold;
-            color: #5a5c69;
+            padding: 0.85rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+            border-radius: 10px;
+            margin: 0.6rem 0;
+            font-weight: 700;
+            color: #4c51bf;
+            border: 2px solid #c7d2fe;
+            font-size: 0.9rem;
         }
 
-        /* COLUNA CENTRAL - Preview */
+        /* ========== CENTER COLUMN ========== */
         .center-column {
             flex: 1;
+            min-width: 0;
             display: flex;
             flex-direction: column;
-            overflow:  hidden;
-            background-color: #e3e6f0;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
         .preview-header {
-            background-color: #4e73df;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 1rem 1.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1.15rem 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 16px 16px 0 0;
+            flex-shrink: 0;
+        }
+
+        .preview-header h5 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .preview-header small {
+            opacity: 0.95;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        .preview-badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.45rem 0.9rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .preview-content {
             flex: 1;
             overflow-y: auto;
+            overflow-x: hidden;
             padding: 1.5rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #f0f4ff 100%);
+            min-height: 0;
         }
 
         .content-card {
             background: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
             padding: 2rem;
+            line-height: 1.8;
         }
 
-        /* COLUNA DIREITA - Alunos */
+        .content-card h2 {
+            color: #1a202c;
+            font-weight: 800;
+            margin-bottom: 1.25rem;
+            font-size: 1.75rem;
+        }
+
+        .content-card h4 {
+            color: #667eea;
+            font-weight: 700;
+            margin-top: 1.75rem;
+            margin-bottom: 0.85rem;
+        }
+
+        .content-card p {
+            color: #4a5568;
+            font-size: 1rem;
+            margin-bottom: 0.85rem;
+        }
+
+        .content-card ul {
+            padding-left: 1.5rem;
+            color: #4a5568;
+        }
+
+        .content-card ul li {
+            margin-bottom: 0.6rem;
+            font-size: 1rem;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+            border-left: 5px solid #3b82f6;
+            padding: 1.25rem;
+            margin: 1.25rem 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-box h6 {
+            color: #1e40af;
+            margin-bottom: 0.6rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .info-box p {
+            margin: 0;
+            color: #1e3a8a;
+            font-weight: 500;
+        }
+
+        /* ========== RIGHT COLUMN ========== */
         .right-column {
             width: 320px;
-            background-color:  #f8f9fc;
-            border-left: 2px solid #e3e6f0;
+            min-width: 320px;
+            max-width: 320px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
-            overflow:  hidden;
+            overflow: hidden;
         }
 
-        . students-header {
-            padding: 1rem;
-            background-color: #fff;
-            border-bottom: 2px solid #e3e6f0;
+        .students-header {
+            padding: 1.15rem 1.25rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-radius: 16px 16px 0 0;
+            flex-shrink: 0;
         }
 
         .students-header h6 {
             margin: 0;
-            font-weight: bold;
-            color: #5a5c69;
+            font-weight: 700;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .online-count {
-            background-color: #1cc88a;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
             color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius:  1rem;
-            font-size:  0.8rem;
-            font-weight:  bold;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: pulse-badge 2s infinite;
         }
 
-        . students-list {
+        @keyframes pulse-badge {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .students-list {
             flex: 1;
             overflow-y: auto;
-            padding:  0.5rem;
+            overflow-x: hidden;
+            padding: 0.85rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #f0f4ff 100%);
+            min-height: 0;
         }
 
         /* Student Card */
         .student-card {
             background: white;
-            border:  2px solid #e3e6f0;
-            border-radius:  0.5rem;
-            padding: 0.75rem;
-            margin-bottom: 0.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 0.85rem;
+            margin-bottom: 0.65rem;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
             position: relative;
+            overflow: hidden;
+        }
+
+        .student-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
         }
 
         .student-card:hover {
-            border-color: #4e73df;
-            box-shadow: 0 2px 8px rgba(78, 115, 223, 0.2);
+            border-color: #667eea;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .student-card:hover::before {
+            transform: scaleY(1);
         }
 
         .student-card.active {
-            border-color: #4e73df;
-            background-color: #eef2ff;
+            border-color: #667eea;
+            background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
         }
 
         .student-header {
             display: flex;
             align-items: center;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.65rem;
         }
 
         .student-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius:  50%;
-            background:  linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-right:  0.75rem;
+            font-weight: 800;
+            font-size: 1.05rem;
+            margin-right: 0.85rem;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            flex-shrink: 0;
         }
 
-        . student-info {
-            flex:  1;
+        .student-info {
+            flex: 1;
+            min-width: 0;
         }
 
         .student-name {
-            font-weight: bold;
+            font-weight: 700;
             font-size: 0.9rem;
-            color: #5a5c69;
-            margin-bottom: 0.25rem;
+            color: #1a202c;
+            margin-bottom: 0.3rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        . student-status {
+        .student-status {
             font-size: 0.75rem;
             display: flex;
             align-items: center;
-            gap: 0.25rem;
+            gap: 0.35rem;
+            color: #64748b;
+            font-weight: 600;
         }
 
         .status-indicator {
-            width: 8px;
-            height: 8px;
-            border-radius:  50%;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
             display: inline-block;
+            flex-shrink: 0;
         }
 
         .status-online {
-            background-color: #1cc88a;
-            animation: pulse 2s infinite;
+            background: #10b981;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+            animation: pulse-online 2s infinite;
+        }
+
+        @keyframes pulse-online {
+            0%, 100% { opacity: 1; box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
+            50% { opacity: 0.7; box-shadow: 0 0 20px rgba(16, 185, 129, 0.8); }
         }
 
         .status-offline {
-            background-color: #858796;
+            background: #94a3b8;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        . student-stats {
+        .student-stats {
             display: flex;
-            gap: 0.5rem;
-            font-size: 0.75rem;
-            color: #858796;
+            gap: 0.85rem;
+            font-size: 0.72rem;
+            color: #64748b;
+            font-weight: 600;
         }
 
-        . student-stat {
+        .student-stat {
             display: flex;
             align-items: center;
-            gap: 0.25rem;
+            gap: 0.3rem;
         }
 
-        . submission-badge {
+        .student-stat i {
+            color: #667eea;
+        }
+
+        .submission-badge {
             position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            width: 24px;
-            height: 24px;
-            border-radius:  50%;
+            top: 0.65rem;
+            right: 0.65rem;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 0.75rem;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
 
         .badge-submitted {
-            background-color: #1cc88a;
-            color:  white;
+            background: #10b981;
+            color: white;
         }
 
-        . badge-pending {
-            background-color: #f6c23e;
+        .badge-pending {
+            background: #f59e0b;
             color: white;
         }
 
         .badge-not-submitted {
-            background-color: #e74a3b;
+            background: #ef4444;
             color: white;
         }
 
-        /* Code Viewer Modal */
+        /* ========== CODE VIEWER MODAL ========== */
         .code-viewer {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            bottom:  0;
-            background-color: rgba(0, 0, 0, 0.7);
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
             z-index: 9999;
             align-items: center;
             justify-content: center;
+            animation: fadeIn 0.3s ease;
         }
 
-        .code-viewer. show {
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .code-viewer.show {
             display: flex;
         }
 
         .code-viewer-content {
             background: white;
-            border-radius: 0.5rem;
+            border-radius: 16px;
             width: 90%;
-            max-width: 800px;
-            max-height:  80vh;
+            max-width: 900px;
+            max-height: 85vh;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .code-viewer-header {
-            padding: 1rem 1.5rem;
-            background-color: #4e73df;
+            padding: 1.25rem 1.75rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            border-radius: 0.5rem 0.5rem 0 0;
+            border-radius: 16px 16px 0 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
+        .code-viewer-header h5 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .code-viewer-header small {
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        .code-viewer-header .btn-close-modal {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.45rem 0.9rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .code-viewer-header .btn-close-modal:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
         .code-viewer-body {
-            padding: 1.5rem;
+            padding: 1.75rem;
             overflow-y: auto;
             flex: 1;
+            background: #f8fafc;
+        }
+
+        .submission-info {
+            background: white;
+            padding: 1.25rem;
+            border-radius: 12px;
+            margin-bottom: 1.25rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .submission-info-item {
+            text-align: center;
+        }
+
+        .submission-info-label {
+            font-size: 0.7rem;
+            color: #64748b;
+            margin-bottom: 0.45rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .submission-info-value {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #1a202c;
+        }
+
+        .code-section-title {
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 0.85rem;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .CodeMirror {
             font-size: 14px;
-            border: 1px solid #e3e6f0;
-            border-radius: 0.5rem;
-            height: auto ! important;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            height: auto !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
-        . submission-info {
-            background-color: #f8f9fc;
-            padding: 1rem;
-            border-radius:  0.5rem;
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: space-around;
+        .no-code-message {
             text-align: center;
+            padding: 3.5rem 2rem;
+            color: #94a3b8;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
-        .submission-info-item {
-            flex: 1;
+        .no-code-message i {
+            font-size: 3.5rem;
+            margin-bottom: 1.25rem;
+            opacity: 0.3;
         }
 
-        .submission-info-label {
-            font-size: 0.75rem;
-            color: #858796;
-            margin-bottom: 0.25rem;
+        .modal-actions {
+            margin-top: 1.25rem;
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.65rem;
         }
 
-        . submission-info-value {
-            font-size: 1rem;
-            font-weight: bold;
-            color: #5a5c69;
+        .modal-actions .btn {
+            padding: 0.6rem 1.35rem;
+            border-radius: 10px;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
         }
 
-        /* Scrollbar */
-        . students-list::-webkit-scrollbar,
+        .modal-actions .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ========== SCROLLBAR ========== */
+        .students-list::-webkit-scrollbar,
         .left-column::-webkit-scrollbar,
         .preview-content::-webkit-scrollbar,
         .code-viewer-body::-webkit-scrollbar {
@@ -434,27 +861,71 @@
         .left-column::-webkit-scrollbar-track,
         .preview-content::-webkit-scrollbar-track,
         .code-viewer-body::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: #f1f5f9;
+            border-radius: 10px;
         }
 
         .students-list::-webkit-scrollbar-thumb,
         .left-column::-webkit-scrollbar-thumb,
         .preview-content::-webkit-scrollbar-thumb,
         .code-viewer-body::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
         }
 
-        . no-code-message {
-            text-align:  center;
-            padding: 3rem;
-            color: #858796;
+        .students-list::-webkit-scrollbar-thumb:hover,
+        .left-column::-webkit-scrollbar-thumb:hover,
+        .preview-content::-webkit-scrollbar-thumb:hover,
+        .code-viewer-body::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #653a8a 100%);
         }
 
-        . no-code-message i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            opacity: 0.3;
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1400px) {
+            .left-column {
+                width: 260px;
+                min-width: 260px;
+                max-width: 260px;
+            }
+            
+            .right-column {
+                width: 300px;
+                min-width: 300px;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .left-column {
+                width: 240px;
+                min-width: 240px;
+                max-width: 240px;
+            }
+            
+            .right-column {
+                width: 280px;
+                min-width: 280px;
+                max-width: 280px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .content-section {
+                flex-direction: column;
+            }
+            
+            .left-column,
+            .right-column {
+                width: 100%;
+                min-width: 100%;
+                max-width: 100%;
+                max-height: 250px;
+            }
+            
+            .center-column {
+                flex: 1;
+                min-height: 300px;
+            }
         }
     </style>
 </head>
@@ -462,23 +933,26 @@
 <body>
     <div class="main-container">
         <!-- Cabeçalho -->
-        <div class="header-section">
+        <div class="header-section dark-navy-blue-bg">
             <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h4 class="mb-0">
-                        <i class="fas fa-chalkboard-teacher"></i> Monitoramento da Aula
-                    </h4>
-                    <small>Introdução ao JavaScript - Olá Mundo</small>
+                <div class="header-title">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div>
+                        <h4>Monitoramento da Aula</h4>
+                        <div class="header-subtitle text-white">Introdução ao JavaScript - Olá Mundo</div>
+                    </div>
                 </div>
-                <div>
-                    <button class="btn btn-light btn-sm mr-2" onclick="toggleFullscreen()">
+                <div class="header-actions">
+                    <button class="btn btn-light-custom" onclick="toggleFullscreen()">
                         <i class="fas fa-expand"></i> Tela Cheia
                     </button>
-                    <button class="btn btn-warning btn-sm mr-2" onclick="pauseLesson()">
-                        <i class="fas fa-pause"></i> Pausar Aula
+                    <button class="btn btn-warning-custom" onclick="pauseLesson()">
+                        <i class="fas fa-pause"></i> Pausar
                     </button>
-                    <button class="btn btn-danger btn-sm" onclick="endLesson()">
-                        <i class="fas fa-stop"></i> Encerrar Aula
+                    <button class="btn btn-danger-custom" onclick="endLesson()">
+                        <i class="fas fa-stop"></i> Encerrar
                     </button>
                 </div>
             </div>
@@ -507,7 +981,7 @@
                 <!-- Timer da Página -->
                 <div class="control-section">
                     <div class="control-section-header">
-                        <i class="fas fa-hourglass-half"></i> Tempo na Página Atual
+                        <i class="fas fa-hourglass-half"></i> Tempo na Página
                     </div>
                     <div class="control-section-body">
                         <div class="page-timer">
@@ -524,19 +998,19 @@
                     <div class="control-section-body">
                         <div class="stat-item">
                             <span class="stat-label">
-                                <i class="fas fa-users"></i> Alunos Online
+                                <i class="fas fa-users"></i> Online
                             </span>
                             <span class="stat-value" id="onlineCount">12/15</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-label">
-                                <i class="fas fa-code"></i> Códigos Enviados
+                                <i class="fas fa-code"></i> Enviados
                             </span>
                             <span class="stat-value" id="submissionCount">8/12</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-label">
-                                <i class="fas fa-check-circle"></i> Soluções Corretas
+                                <i class="fas fa-check-circle"></i> Corretos
                             </span>
                             <span class="stat-value text-success" id="correctCount">5</span>
                         </div>
@@ -556,7 +1030,7 @@
                     </div>
                     <div class="control-section-body">
                         <button class="btn btn-secondary btn-block nav-button" onclick="previousPage()" id="btnPrevious">
-                            <i class="fas fa-chevron-left"></i> Página Anterior
+                            <i class="fas fa-chevron-left"></i> Anterior
                         </button>
                         
                         <div class="page-indicator" id="pageIndicator">
@@ -564,16 +1038,16 @@
                         </div>
                         
                         <button class="btn btn-primary btn-block nav-button" onclick="nextPage()" id="btnNext">
-                            Próxima Página <i class="fas fa-chevron-right"></i>
+                            Próxima <i class="fas fa-chevron-right"></i>
                         </button>
 
                         <hr>
 
-                        <button class="btn btn-info btn-sm btn-block" onclick="broadcastMessage()">
-                            <i class="fas fa-bullhorn"></i> Enviar Mensagem
+                        <button class="btn btn-info btn-sm btn-block mb-2" onclick="broadcastMessage()">
+                            <i class="fas fa-bullhorn"></i> Mensagem
                         </button>
                         <button class="btn btn-warning btn-sm btn-block" onclick="exportReport()">
-                            <i class="fas fa-file-export"></i> Exportar Relatório
+                            <i class="fas fa-file-export"></i> Relatório
                         </button>
                     </div>
                 </div>
@@ -584,11 +1058,11 @@
                 <div class="preview-header">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h5 class="mb-0" id="pageTitle">Página 1</h5>
+                            <h5 id="pageTitle">Página 1</h5>
                             <small id="pageType">Explicação</small>
                         </div>
                         <div>
-                            <span class="badge badge-light">
+                            <span class="preview-badge">
                                 <i class="fas fa-eye"></i> Visualização do Professor
                             </span>
                         </div>
@@ -601,12 +1075,12 @@
                         <h2>📚 O que é JavaScript?</h2>
                         <p>JavaScript é uma <strong>linguagem de programação</strong> muito popular usada para criar sites interativos e aplicativos web.</p>
                         
-                        <div style="background-color: #d1ecf1; border-left: 4px solid #17a2b8; padding: 15px; margin:  20px 0; border-radius: 5px;">
-                            <h6 style="color: #0c5460; margin-bottom: 10px;"><i class="fas fa-lightbulb"></i> Você Sabia?</h6>
-                            <p style="margin:  0; color: #0c5460;">JavaScript é diferente de Java!  São linguagens completamente diferentes, apesar do nome parecido.</p>
+                        <div class="info-box">
+                            <h6><i class="fas fa-lightbulb"></i> Você Sabia?</h6>
+                            <p>JavaScript é diferente de Java! São linguagens completamente diferentes, apesar do nome parecido.</p>
                         </div>
 
-                        <h4 style="color: #4e73df; margin-top: 30px;">Para que serve o JavaScript?</h4>
+                        <h4>Para que serve o JavaScript?</h4>
                         <ul>
                             <li>Criar animações em páginas web</li>
                             <li>Validar formulários</li>
@@ -615,7 +1089,7 @@
                             <li>E muito mais!</li>
                         </ul>
 
-                        <p style="margin-top: 20px;">Vamos começar com o programa mais simples:  exibir uma mensagem na tela!  🚀</p>
+                        <p style="margin-top: 20px;">Vamos começar com o programa mais simples: exibir uma mensagem na tela! 🚀</p>
                     </div>
                 </div>
             </div>
@@ -639,11 +1113,11 @@
         <div class="code-viewer-content">
             <div class="code-viewer-header">
                 <div>
-                    <h5 class="mb-0" id="viewerStudentName">João Silva</h5>
-                    <small id="viewerPageInfo">Página 3 - Exercício:  Olá Mundo</small>
+                    <h5 id="viewerStudentName">João Silva</h5>
+                    <small id="viewerPageInfo">Página 3 - Exercício: Olá Mundo</small>
                 </div>
-                <button class="btn btn-sm btn-light" onclick="closeCodeViewer()">
-                    <i class="fas fa-times"></i>
+                <button class="btn btn-sm btn-close-modal" onclick="closeCodeViewer()">
+                    <i class="fas fa-times"></i> Fechar
                 </button>
             </div>
             <div class="code-viewer-body">
@@ -656,7 +1130,7 @@
                     </div>
                     <div class="submission-info-item">
                         <div class="submission-info-label">Horário</div>
-                        <div class="submission-info-value" id="viewerTime">10:45: 32</div>
+                        <div class="submission-info-value" id="viewerTime">10:45:32</div>
                     </div>
                     <div class="submission-info-item">
                         <div class="submission-info-label">Tentativas</div>
@@ -670,7 +1144,7 @@
                     </div>
                 </div>
 
-                <h6 class="mb-3"><i class="fas fa-code"></i> Código Enviado: </h6>
+                <h6 class="code-section-title"><i class="fas fa-code"></i> Código Enviado:</h6>
                 <div id="codeViewerEditor"></div>
 
                 <div id="noCodeMessage" class="no-code-message" style="display: none;">
@@ -678,14 +1152,14 @@
                     <p>Este aluno ainda não enviou nenhum código.</p>
                 </div>
 
-                <div class="mt-3 d-flex justify-content-end gap-2">
-                    <button class="btn btn-success btn-sm" onclick="approveCode()">
+                <div class="modal-actions">
+                    <button class="btn btn-success" onclick="approveCode()">
                         <i class="fas fa-check"></i> Aprovar
                     </button>
-                    <button class="btn btn-warning btn-sm" onclick="sendFeedback()">
-                        <i class="fas fa-comment"></i> Enviar Feedback
+                    <button class="btn btn-warning" onclick="sendFeedback()">
+                        <i class="fas fa-comment"></i> Feedback
                     </button>
-                    <button class="btn btn-secondary btn-sm" onclick="closeCodeViewer()">
+                    <button class="btn btn-secondary" onclick="closeCodeViewer()">
                         Fechar
                     </button>
                 </div>
@@ -701,7 +1175,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/startbootstrap-sb-admin-2@4.1. 4/js/sb-admin-2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/startbootstrap-sb-admin-2@4.1.4/js/sb-admin-2.min.js"></script>
 
     <script>
         // Dados de exemplo
@@ -740,7 +1214,7 @@
                 submitted: true,
                 correct: false,
                 attempts: 5,
-                code: 'console.log("Olá Mundo");  // Faltou a vírgula!'
+                code: 'console.log("Olá Mundo"); // Faltou a vírgula!'
             },
             {
                 id: 4,
@@ -752,7 +1226,7 @@
                 submitted: false,
                 correct: false,
                 attempts: 0,
-                code:  '// Tentando resolver.. .'
+                code: '// Tentando resolver...'
             },
             {
                 id: 5,
@@ -764,7 +1238,7 @@
                 submitted: true,
                 correct: true,
                 attempts: 2,
-                code:  'console.log("Olá, Mundo!");'
+                code: 'console.log("Olá, Mundo!");'
             },
             {
                 id: 6,
@@ -776,7 +1250,7 @@
                 submitted: false,
                 correct: false,
                 attempts: 0,
-                code:  null
+                code: null
             },
             {
                 id: 7,
@@ -800,19 +1274,19 @@
                 submitted: false,
                 correct: false,
                 attempts: 0,
-                code:  '// Código em andamento'
+                code: '// Código em andamento'
             },
             {
                 id: 9,
                 name: "Lucas Ferreira",
-                avatar:  "LF",
-                online:  true,
+                avatar: "LF",
+                online: true,
                 currentPage: 1,
                 lastSubmission: "10:47:10",
                 submitted: true,
                 correct: false,
                 attempts: 4,
-                code: 'console.log(Olá, Mundo!);  // Faltam aspas!'
+                code: 'console.log(Olá, Mundo!); // Faltam aspas!'
             },
             {
                 id: 10,
@@ -836,7 +1310,7 @@
                 submitted: false,
                 correct: false,
                 attempts: 0,
-                code:  null
+                code: null
             },
             {
                 id: 12,
@@ -845,7 +1319,7 @@
                 online: true,
                 currentPage: 1,
                 lastSubmission: "10:49:45",
-                submitted:  true,
+                submitted: true,
                 correct: true,
                 attempts: 1,
                 code: 'console.log("Olá, Mundo!");'
@@ -860,7 +1334,7 @@
                 submitted: false,
                 correct: false,
                 attempts: 0,
-                code:  null
+                code: null
             },
             {
                 id: 14,
@@ -872,7 +1346,7 @@
                 submitted: false,
                 correct: false,
                 attempts: 0,
-                code:  '// Ainda resolvendo...'
+                code: '// Ainda resolvendo...'
             },
             {
                 id: 15,
@@ -943,11 +1417,11 @@
                         <div class="student-stats">
                             <div class="student-stat">
                                 <i class="fas fa-file-code"></i>
-                                ${student.submitted ? 'Enviado' :  'Pendente'}
+                                ${student.submitted ? 'Enviado' : 'Pendente'}
                             </div>
                             <div class="student-stat">
                                 <i class="fas fa-redo"></i>
-                                ${student.attempts} tentativa(s)
+                                ${student.attempts} tent.
                             </div>
                         </div>
                     </div>
@@ -964,7 +1438,7 @@
             if (!selectedStudent) return;
 
             $('#viewerStudentName').text(selectedStudent.name);
-            $('#viewerPageInfo').text(`Página ${currentPageIndex + 1} - Exercício:  Olá Mundo`);
+            $('#viewerPageInfo').text(`Página ${currentPageIndex + 1} - Exercício: Olá Mundo`);
             
             if (selectedStudent.submitted) {
                 $('#viewerStatus').html('<i class="fas fa-check-circle"></i> Enviado').removeClass('text-danger').addClass('text-success');
@@ -993,10 +1467,10 @@
                     const textarea = document.createElement('textarea');
                     $('#codeViewerEditor').html('').append(textarea);
                     
-                    codeViewerMirror = CodeMirror. fromTextArea(textarea, {
+                    codeViewerMirror = CodeMirror.fromTextArea(textarea, {
                         mode: 'javascript',
                         theme: 'dracula',
-                        lineNumbers:  true,
+                        lineNumbers: true,
                         readOnly: true,
                         viewportMargin: Infinity
                     });
@@ -1090,9 +1564,9 @@
             
             // Atualizar conteúdo da página (exemplo)
             const pages = [
-                { title: 'Página 1', type: 'Explicação', content: '<h2>📚 O que é JavaScript?</h2><p>Conteúdo da página 1... </p>' },
-                { title:  'Página 2', type: 'Explicação', content: '<h2>💻 Seu Primeiro Programa</h2><p>Conteúdo da página 2... </p>' },
-                { title:  'Página 3', type: 'Exercício', content: '<h2>🎯 Desafio:  Olá Mundo</h2><p>Conteúdo da página 3...</p>' }
+                { title: 'Página 1', type: 'Explicação', content: '<h2>📚 O que é JavaScript?</h2><p>Conteúdo da página 1...</p>' },
+                { title: 'Página 2', type: 'Explicação', content: '<h2>💻 Seu Primeiro Programa</h2><p>Conteúdo da página 2...</p>' },
+                { title: 'Página 3', type: 'Exercício', content: '<h2>🎯 Desafio: Olá Mundo</h2><p>Conteúdo da página 3...</p>' }
             ];
             
             $('#pageTitle').text(pages[currentPageIndex].title);
@@ -1119,7 +1593,7 @@
 
         // Tela cheia
         function toggleFullscreen() {
-            if (! document.fullscreenElement) {
+            if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen();
             } else {
                 document.exitFullscreen();
@@ -1133,9 +1607,8 @@
 
         // Encerrar aula
         function endLesson() {
-            if (confirm('Tem certeza que deseja encerrar esta aula?\n\nOs alunos serão desconectados. ')) {
+            if (confirm('Tem certeza que deseja encerrar esta aula?\n\nOs alunos serão desconectados.')) {
                 alert('✅ Aula encerrada!\n\nEm produção, isso salvaria todos os dados e desconectaria os alunos.');
-                // window.location.href = '/dashboard';
             }
         }
 
@@ -1151,10 +1624,10 @@
         function exportReport() {
             const report = {
                 lesson: 'Introdução ao JavaScript - Olá Mundo',
-                date:  new Date().toISOString(),
+                date: new Date().toISOString(),
                 duration: $('#lessonTimer').text(),
                 students: students.map(s => ({
-                    name:  s.name,
+                    name: s.name,
                     online: s.online,
                     submitted: s.submitted,
                     correct: s.correct,

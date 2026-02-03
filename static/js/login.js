@@ -17,6 +17,7 @@ function showPass(idCampo) {
 
 //Configura um "listener" para o evento de submit do form (Com uma arrow function ()=>{} ) e verifica a senha
 form.form().addEventListener("submit", (e) => {
+    /*
     if (form.senha().value !== form.confirmar().value) {
         //Evita reload da pagina
         e.preventDefault();
@@ -26,6 +27,7 @@ form.form().addEventListener("submit", (e) => {
         form.erro().textContent = "";
         form.erro().style.display = "none";
     }
+    */
 });
 
 // LOGIN TEMPORARIO
@@ -44,6 +46,6 @@ form_login.addEventListener('submit',function(event){
     if (emailValorDigitado === "professor@gmail.com" && senhaValorDigitado === "123"){
          window.location.href = "../template/dashboard.html";
     }else{
-        alert("Email ou Senha invalidos!")
+        //alert("Email ou Senha invalidos!")
     }
 })
